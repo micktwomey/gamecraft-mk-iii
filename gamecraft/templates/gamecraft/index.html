@@ -1,0 +1,11 @@
+{% load compressed %}
+<html manifest="{% url 'cache_manifest' %}">
+<head>
+  {% compressed_css 'gamecraft' %}
+</head>
+<body>
+    <section>
+        <h1>Hi</h1>
+        <p>Hello</p>
+    </section>
+</html>
