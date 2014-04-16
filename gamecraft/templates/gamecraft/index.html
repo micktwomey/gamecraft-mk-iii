@@ -1,5 +1,5 @@
 {% load compressed %}
-<html manifest="{% url 'cache_manifest' %}">
+<html>
 <head>
   {% compressed_css 'gamecraft' %}
 </head>
@@ -7,5 +7,8 @@
     <section>
         <h1>Hi</h1>
         <p>Hello</p>
+        <p><a href="{% url 'account_profile' %}">Profile</a></p>
     </section>
+{% compressed_js 'gamecraft' %}
+</body>
 </html>

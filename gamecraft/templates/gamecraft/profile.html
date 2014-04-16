@@ -1,0 +1,18 @@
+{% load account %}
+{% load socialaccount %}
+{% get_social_accounts user as accounts %}
+
+<html>
+<head>
+  <title>Profile</title>
+  <body>
+    <p>Hi there {{user}}</p>
+    <p>{% user_display user %}</p>
+    <p>Twitter: {{accounts.twitter}}</p>
+    <p>GitHub: {{accounts.github}}</p>
+    <p>BitBucket: {{accounts.bitbucket}}</p>
+    <p><a href="{% url 'socialaccount_connections' %}">Connect or disconnect accounts</a></p>
+    <p><a href="{% url 'account_login' %}">Sign In</a></p>
+    <p><a href="{% url 'account_logout' %}">Sign Out</a></p>
+  </body>
+</html>
