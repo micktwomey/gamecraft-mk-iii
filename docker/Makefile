@@ -1,7 +1,8 @@
 TAG=micktwomey/gamecraft
 MOUNTS=-v /vagrant:/gamecraft/src/development:rw \
 	-v /vagrant/logs:/gamecraft/logs:rw \
-	-v /vagrant/uploads:/gamecraft/uploads:rw
+	-v /vagrant/uploads:/gamecraft/uploads:rw \
+	-v /vagrant/backups:/gamecraft/backups:rw
 
 all: build
 
@@ -29,3 +30,9 @@ runserver-background:
 stop:
 	docker stop gamecraft || true
 	docker rm gamecraft || true
+
+dumpdata:
+	docker run -i -t $(MOUNTS) $(TAG) dumpdata --indent=2 --format=yaml --natural-foreign  --natural-primary auth.user sites.site socialaccount | grep -v RemovedInDjango18Warning > ../backups/data.yaml
+
+loaddata:
+	docker run -i -t $(MOUNTS) $(TAG) loaddata /gamecraft/backups/data.yaml

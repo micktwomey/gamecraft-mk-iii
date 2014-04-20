@@ -24,3 +24,15 @@ shell:
 
 test:
 	cd $(DOCKER) && $(MAKE) test
+
+dumpdata:
+	cd $(DOCKER) && $(MAKE) dumpdata
+	@echo
+	@echo "backups/data.yaml has the data"
+	@echo
+
+loaddata:
+	@echo
+	@echo "Loading data from backups/data.yaml"
+	@echo
+	cd $(DOCKER) && $(MAKE) loaddata

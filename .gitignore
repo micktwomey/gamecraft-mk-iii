@@ -60,3 +60,4 @@ gamecraft/static/css/gamecraft.css
 .vagrant
 logs
 uploads
+backups
