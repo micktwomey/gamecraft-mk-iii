@@ -28,6 +28,8 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+INTERNAL_IPS = ['127.0.0.1', 'localhost', '::1', '10.0.2.2']
+
 
 # Application definition
 
@@ -40,15 +42,16 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'pipeline',
-    'manifesto',
     "gamecraft",
+    "gamecraft.events",
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.bitbucket',
     'allauth.socialaccount.providers.github',
-    # 'allauth.socialaccount.providers.persona',
     'allauth.socialaccount.providers.twitter',
+    'debug_toolbar',
+    'django.contrib.admindocs',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -60,6 +63,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.gzip.GZipMiddleware',
     'pipeline.middleware.MinifyHTMLMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'gamecraft.urls'
@@ -100,7 +104,6 @@ STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 STATICFILES_DIRS = (
     os.path.join(GAMECRAFT_DIR, "static"),
-    # os.path.join(BASE_DIR, 'bower_components'),
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, "collected-static")
@@ -122,6 +125,7 @@ PIPELINE_JS = {
     'gamecraft': {
         'source_filenames': (
             'js/holder.js',
+            'js/jquery.js',
             'js/bootstrap.js',
         ),
         'output_filename': 'js/gamecraft.js',

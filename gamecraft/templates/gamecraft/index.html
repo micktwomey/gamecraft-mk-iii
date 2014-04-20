@@ -1,14 +1,55 @@
-{% load compressed %}
-<html>
-<head>
-  {% compressed_css 'gamecraft' %}
-</head>
-<body>
-    <section>
-        <h1>Hi</h1>
-        <p>Hello</p>
-        <p><a href="{% url 'account_profile' %}">Profile</a></p>
-    </section>
-{% compressed_js 'gamecraft' %}
-</body>
-</html>
+
+{% extends "gamecraft/base_gamecraft.html" %}
+
+{% load static %}
+
+{% block title %}GameCraft{% endblock %}
+
+{% block body_class %}frontpage{% endblock %}
+
+{% block content %}
+<section class="banner">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4"><img class="img-responsive" src="{% static 'img/gamecraft-logo-466x479.png' %}"></div>
+      <div class="col-md-8">
+        <h1>Global GameCraft <small>Connect, Create, Collaborate</small></h1>
+        <h2>What is GameCraft?</h2>
+        <p>GameCraft is a games jam event designed around building the gaming community. We aim to create events which allow game-makers to meet, share ideas, have fun, compete for prizes and most importantly make games!</p>
+
+        <p>The first Dublin GameCraft took place in February of 2012 in DIT with over 120 attendees producing more than 35 games. Since then Dublin GameCraft has gone from strength to strength with events in GamesFlá Thurles, in Belfast, and even a charity GameCraft for ISPCA.</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="center-block">
+
+        <h2>Wanna Jam?</h2>
+        <p><a class="btn btn-primary btn-lg" role="button">Register!</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="events">
+  <div class="container">
+    <div class="row">
+      {% for event in events %}
+      <div class="col-sm-6 col-md-4">
+        <div class="event" style="background-image: url(http://placekitten.com/g/400/300);">
+          <a href="#">
+            <div class="title">
+              <h1>Event Title {{event}}<br><small>Event location and time</small></h1>
+            </div>
+            <div class="info">
+              <p>Link to Event and register?</p>
+            </div>
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

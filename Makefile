@@ -1,15 +1,26 @@
-SYSTEM_PYTHON=$(shell which python3.4 || which python3)
-VENV=$(CURDIR)/gamecraft-mk-iii-venv
-PIP=$(VENV)/bin/pip
-INSTALLED=$(VENV)/installed.txt
-REQUIREMENTS=$(CURDIR)/requirements.txt
+DOCKER=$(CURDIR)/docker
+REQUIREMENTS=$(DOCKER)/requirements.txt
 
+.PHONY: \
+	docker
 
-all: $(INSTALLED)
+all: build
 
-$(PIP):
-	virtualenv --python=$(SYSTEM_PYTHON) $(VENV)
+build: $(REQUIREMENTS)
+	cd $(DOCKER) && $(MAKE)
 
-$(INSTALLED): $(REQUIREMENTS) $(PIP)
-	$(PIP) install -r $(REQUIREMENTS)
-	$(PIP) freeze -r $(REQUIREMENTS) > $(INSTALLED)
+migrate:
+	cd $(DOCKER) && $(MAKE) migrate
+
+runserver: stop build migrate
+	cd $(DOCKER) && $(MAKE) runserver
+
+stop:
+	cd $(DOCKER) && $(MAKE) stop
+	docker ps
+
+shell:
+	cd $(DOCKER) && $(MAKE) shell
+
+test:
+	cd $(DOCKER) && $(MAKE) test

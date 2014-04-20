@@ -7,7 +7,8 @@ from django.views.generic.base import TemplateView
 
 urlpatterns = patterns('',
     url(r'^$', 'gamecraft.views.frontpage', name='frontpage'),
-    # url(r'^blog/', include('blog.urls')),
+    url(r'^events/', include('gamecraft.events.urls')),
+    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
     # url(r'^manifest\.appcache$', ManifestView.as_view(), name="cache_manifest"),
     url(r'^accounts/profile/$', TemplateView.as_view(template_name='gamecraft/profile.html'), name="account_profile"),
