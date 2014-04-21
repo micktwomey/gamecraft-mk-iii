@@ -131,6 +131,7 @@ PIPELINE_CSS = {
     'gamecraft': {
         'source_filenames': (
             'css/gamecraft.less',
+            'css/leaflet.css',
         ),
         'output_filename': 'css/gamecraft.css',
     },
@@ -142,6 +143,7 @@ PIPELINE_JS = {
             'js/holder.js',
             'js/jquery.js',
             'js/bootstrap.js',
+            'js/leaflet.js',
         ),
         'output_filename': 'js/gamecraft.js',
     },
@@ -164,5 +166,7 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     "allauth.account.auth_backends.AuthenticationBackend",
 )
+
+LOGIN_URL = 'account_login'
 
 SITE_ID = 1

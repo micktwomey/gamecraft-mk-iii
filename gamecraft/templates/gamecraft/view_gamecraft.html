@@ -1,0 +1,65 @@
+{% extends "gamecraft/base_gamecraft.html" %}
+
+{% load markdown %}
+
+{% block title %}
+  {{gamecraft.title}}
+{% endblock title %}
+
+{% block body_class %}gamecraft{% endblock %}
+
+{% block content %}
+<section class="banner" style="background-image: url()">
+  <div class="container">
+    <h1>{{gamecraft.title}}</h1>
+    <h2>{{gamecraft.location}}</h2>
+  </div>
+  <div class="footer">
+    <p>Sign Up!</p>
+  </div>
+</section>
+
+<section class="description">
+  <div class="container">
+    <h1>About</h1>
+    {{gamecraft.content|markdown}}
+  </div>
+</section>
+
+<section class="judges">
+  <div class="container">
+    <h1>Judges</h1>
+    {{gamecraft.judges|markdown}}
+  </div>
+</section>
+
+<section class="theme">
+  <div class="container">
+    <h1>Theme</h1>
+    {{gamecraft.theme|markdown}}
+  </div>
+</section>
+
+
+<section class="map">
+<h1>Where</h1>
+<div id="map" style="width: 100%; min-height: 400px"></div>
+</section>
+
+<div class="container">
+  {% if perms.gamecrafts.modify_gamecraft %}
+  <p><a href="{% url 'edit_gamecraft' slug=gamecraft.slug %}">Edit</a></p>
+  {% endif %}
+</div>
+{% endblock content %}
+
+{% block script %}
+{{ block.super }}
+<script type="text/javascript">
+  var map = L.map('map', {dragging: false, scrollWheelZoom: false}).setView([{{gamecraft.location_latitude}}, {{gamecraft.location_longitude}}], 17);
+  L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+    maxZoom: 18
+  }).addTo(map);
+</script>
+{% endblock script %}

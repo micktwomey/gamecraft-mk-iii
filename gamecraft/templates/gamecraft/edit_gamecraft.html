@@ -1,0 +1,14 @@
+{% extends "gamecraft/base_gamecraft.html" %}
+
+{% block title %}
+  {{event.title}}
+{% endblock title %}
+
+{% block content %}
+  <h1 contenteditable="true" style="border-bottom: 2px black dashed;">{{event.title}}</h1>
+
+<form role="form" method="POST" action="{% url 'edit_gamecraft' gamecraft.slug %}">
+  {{form}}
+</form>
+
+{% endblock content %}

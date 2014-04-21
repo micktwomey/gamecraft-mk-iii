@@ -32,7 +32,7 @@ stop:
 	docker rm gamecraft || true
 
 dumpdata:
-	docker run -i -t $(MOUNTS) $(TAG) dumpdata --indent=2 --format=yaml --natural-foreign  --natural-primary auth.user sites.site socialaccount | grep -v RemovedInDjango18Warning > ../backups/data.yaml
+	docker run -i -t $(MOUNTS) $(TAG) dumpdata --indent=2 --format=yaml --natural-foreign  --natural-primary auth.user sites.site socialaccount | egrep -v 'RemovedInDjango18Warning|^  class SocialAppForm) > ../backups/data.yaml
 
 loaddata:
 	docker run -i -t $(MOUNTS) $(TAG) loaddata /gamecraft/backups/data.yaml
