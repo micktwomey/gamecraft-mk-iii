@@ -30,7 +30,7 @@ class GameCraft(models.Model):
     location_latitude = models.DecimalField(max_digits=9, decimal_places=7, blank=True, null=True, help_text="The latitude of the event for maps. Geocoded automatically or enter by hand as a fallback.")
     location_longitude = models.DecimalField(max_digits=10, decimal_places=7, blank=True, null=True, help_text="The latitude of the event for maps. Geocoded automatically or enter by hand as a fallback.")
 
-    header_background = models.FileField(blank=True, help_text="The image used for the header background")
+    header_background = models.ImageField(blank=True, help_text="The image used for the header background", upload_to="gamecraft/background/%Y/%m/%d")
 
     content = models.TextField(blank=True, help_text="The main event description, in Markdown. Currently also where you'd put ad hoc info like 'Hosted by...'.")
     theme = models.TextField(blank=True, help_text="The theme description, in Markdown. This is displayed after the event start.")

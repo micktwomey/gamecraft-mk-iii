@@ -1,6 +1,7 @@
 {% extends "gamecraft/base_gamecraft.html" %}
 
 {% load markdown %}
+{% load tz %}
 
 {% block title %}
   {{gamecraft.title}}
@@ -9,10 +10,13 @@
 {% block body_class %}gamecraft{% endblock %}
 
 {% block content %}
-<section class="banner" style="background-image: url()">
+<section class="banner" style="background-image: url({{gamecraft.header_background}})">
   <div class="container">
     <h1>{{gamecraft.title}}</h1>
     <h2>{{gamecraft.location}}</h2>
+    {% timezone gamecraft.timezone %}
+    <h3>{{gamecraft.starts | date:"l, F n P T"}} to {{gamecraft.ends | date:"P"}}</h3>
+    {% endtimezone %}
   </div>
   <div class="footer">
     <p>Sign Up!</p>
@@ -21,7 +25,6 @@
 
 <section class="description">
   <div class="container">
-    <h1>About</h1>
     {{gamecraft.content|markdown}}
   </div>
 </section>
