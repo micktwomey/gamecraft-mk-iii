@@ -47,7 +47,7 @@ RUN pip install -r requirements.txt
 # so you need to use a new tag to force a rebuild.
 RUN git clone https://github.com/micktwomey/gamecraft-mk-iii.git gamecraft && \
     cd gamecraft && \
-    git checkout 05c3c278e2e6ef6fd1732deae57e05d5762eb917
+    git checkout 0.0.1
 
 # Add the dev version to the python path
 RUN echo /gamecraft/src/development > /usr/local/lib/python3.4/dist-packages/gamecraft.pth
