@@ -10,8 +10,8 @@
 {% block body_class %}gamecraft{% endblock %}
 
 {% block content %}
-<section class="banner" style="background-image: url({{gamecraft.header_background}})">
-  <div class="container">
+<div class="banner" style="background-image: url({% url 'view_gamecraft_background' slug=gamecraft.slug %})">
+  <div class="title">
     <h1>{{gamecraft.title}}</h1>
     <h2>{{gamecraft.location}}</h2>
     {% timezone gamecraft.timezone %}
@@ -21,11 +21,12 @@
   <div class="footer">
     <p>Sign Up!</p>
   </div>
-</section>
+</div>
 
-<section class="description">
+<section class="theme">
   <div class="container">
-    {{gamecraft.content|markdown}}
+    <h1>Theme</h1>
+    {{gamecraft.theme|markdown}}
   </div>
 </section>
 
@@ -36,17 +37,15 @@
   </div>
 </section>
 
-<section class="theme">
+<section class="description">
   <div class="container">
-    <h1>Theme</h1>
-    {{gamecraft.theme|markdown}}
+    {{gamecraft.content|markdown}}
   </div>
 </section>
 
-
 <section class="map">
 <h1>Where</h1>
-<div id="map" style="width: 100%; min-height: 400px"></div>
+<div id="map"></div>
 </section>
 
 <div class="container">

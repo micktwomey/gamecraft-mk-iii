@@ -25,6 +25,9 @@ shell:
 test:
 	cd $(DOCKER) && $(MAKE) test
 
+createdb:
+	cd $(DOCKER) && $(MAKE) createdb
+
 dumpdata:
 	cd $(DOCKER) && $(MAKE) dumpdata
 	@echo

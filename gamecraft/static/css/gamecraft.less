@@ -6,12 +6,19 @@
 @normal-background-color: #fff;
 
 @event-color: #ddd;
-@event-background-color: #00A0B0;
+@event-background-color: rgb(215, 238, 233);
 
 @sponsors-background-color: #EDC951;
 @about-background-color: #EB6841;
 
 @headings-font-family: "futura-pt",sans-serif;
+
+.filter(@arguments) {
+    -webkit-filter: @arguments;
+       -moz-filter: @arguments;
+        -ms-filter: @arguments;
+         -o-filter: @arguments;
+}
 
 /*Sticky footer from http://getbootstrap.com/examples/sticky-footer/*/
 html {
@@ -80,6 +87,59 @@ footer {
             }
         }
 
+    }
+}
+
+.gamecraft {
+    .banner {
+        position: relative;
+        text-align: center;
+        color: @event-color;
+        background-color: @event-background-color;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+        width: 100%;
+        // .filter(blur(5px) saturate(50%));
+
+        .title {
+            width: 100%;
+            padding: 2em;
+            min-height: 400px;
+            background-color: fadeout(@event-background-color, 70%);
+
+            h1 {
+                font-size: 72pt;
+            }
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            min-height: 50px;
+            background-color: rgba(0,0,0,0.5);
+        }
+    }
+
+    .description {
+        min-height: 300px;
+    }
+
+    .judges {
+        // min-height: 300px;
+    }
+
+    .theme {
+        background-color: @event-background-color;
+    }
+
+    .map {
+        width: 100%;
+
+        #map {
+            min-height: 400px;
+        }
     }
 }
 

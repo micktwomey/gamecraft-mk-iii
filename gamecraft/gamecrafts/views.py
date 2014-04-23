@@ -3,6 +3,7 @@ import uuid
 
 from django.contrib.auth.decorators import permission_required
 from django import forms
+from django.http import HttpResponse
 from django.shortcuts import (
     redirect,
     render,
@@ -52,3 +53,11 @@ def edit_gamecraft(request, slug):
 def view_gamecraft(request, slug):
     gc = GameCraft.objects.get(slug=slug)
     return render(request, "gamecraft/view_gamecraft.html", {"gamecraft": gc})
+
+
+def view_background(request, slug):
+    """As a fallback offer the background image
+
+    """
+    gc = GameCraft.objects.get(slug=slug)
+    return HttpResponse(gc.header_background, content_type='image/png')

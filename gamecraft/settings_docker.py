@@ -1,6 +1,20 @@
-from gamecraft.settings import *
+import os
 
 import yaml
+
+from gamecraft.settings import *
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'gamecraft',
+        'USER': 'docker',
+        'PASSWORD': 'docker',
+        'HOST': os.environ["POSTGRESQL_PORT_5432_TCP_ADDR"],
+        'PORT': os.environ["POSTGRESQL_PORT_5432_TCP_PORT"],
+    }
+}
+
 
 LOGGING = {
     'version': 1,
@@ -22,7 +36,7 @@ LOGGING = {
     },
 }
 
-MEDIA_ROOT="/gamecraft/uploads"
+MEDIA_ROOT = "/gamecraft/uploads"
 
 # Merge in /gamecraft/config/django.yaml if it exists
 try:

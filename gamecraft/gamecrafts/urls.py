@@ -5,4 +5,5 @@ urlpatterns = patterns('gamecraft.gamecrafts',
     url(r'^new/$', 'views.new_gamecraft', name='new_gamecraft'),
     url(r'^(?P<slug>[^/]+)/edit/$', 'views.edit_gamecraft', name='edit_gamecraft'),
     url(r'^(?P<slug>[^/]+)/$', 'views.view_gamecraft', name='view_gamecraft'),
+    url(r'^(?P<slug>[^/]+)/background/$', 'views.view_background', name='view_gamecraft_background'),
 )
