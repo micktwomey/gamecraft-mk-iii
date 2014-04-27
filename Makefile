@@ -6,6 +6,9 @@ REQUIREMENTS=$(DOCKER)/requirements.txt
 
 all: build
 
+$(REQUIREMENTS):
+	git submodule update || git submodule init && git submodule update
+
 build: $(REQUIREMENTS)
 	cd $(DOCKER) && $(MAKE)
 
