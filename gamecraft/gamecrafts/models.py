@@ -1,7 +1,12 @@
+import datetime
+import logging
+
 from django.core.urlresolvers import reverse
 from django.db import models
 
 import pytz
+
+LOG = logging.getLogger(__name__)
 
 
 class PublishedManager(models.Manager):
@@ -9,6 +14,7 @@ class PublishedManager(models.Manager):
 
     """
     def get_queryset(self):
+        LOG.debug("Filtering with publich=True")
         return super(models.Manager, self).get_queryset().filter(public=True)
 
 
@@ -55,3 +61,12 @@ class GameCraft(models.Model):
 
     def get_absolute_url(self):
         return reverse('view_gamecraft', kwargs={"slug": self.slug})
+
+
+def get_upcoming_gamecrafts():
+    """Returns a list of all published upcoming gamecrafts (or current)
+
+    """
+    now = datetime.datetime.utcnow().replace(tzinfo=pytz.UTC)
+    LOG.debug("Filtering with now={!r}".format(now))
+    return GameCraft.published.filter(ends__gte=now).order_by("starts")

@@ -2,6 +2,7 @@
 {% extends "gamecraft/base_gamecraft.html" %}
 
 {% load static %}
+{% load tz %}
 
 {% block title %}GameCraft{% endblock %}
 
@@ -21,35 +22,28 @@
       </div>
     </div>
 
-    <div class="container">
-      <div class="center-block">
-
-        <h2>Wanna Jam?</h2>
-        <p><a class="btn btn-primary btn-lg" role="button">Register!</a></p>
-      </div>
-    </div>
   </div>
 </section>
 
-<section class="events">
+{% if gamecrafts %}
+<section class="gamecrafts">
   <div class="container">
-    <div class="row">
-      {% for event in events %}
-      <div class="col-sm-6 col-md-4">
-        <div class="event" style="background-image: url(http://placekitten.com/g/400/300);">
-          <a href="#">
-            <div class="title">
-              <h1>Event Title {{event}}<br><small>Event location and time</small></h1>
-            </div>
-            <div class="info">
-              <p>Link to Event and register?</p>
-            </div>
-          </a>
-        </div>
+    <h1>Coming Soon</h1>
+    {% for gamecraft in gamecrafts %}
+      <div class="gamecraft">
+        <a href="{% url 'view_gamecraft' gamecraft.slug %}">
+          <div class="title">
+            <h1>{{gamecraft.title}}</h1>
+            <h2>{{gamecraft.location}}</h2>
+            {% timezone gamecraft.timezone %}
+            <h3>{{gamecraft.starts | date:"l, F n, P T"}}</h3>
+            {% endtimezone %}
+          </div>
+        </a>
       </div>
-      {% endfor %}
-    </div>
+    {% endfor %}
   </div>
 </section>
+{% endif %}
 
 {% endblock %}
