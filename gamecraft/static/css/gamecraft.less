@@ -1,17 +1,33 @@
 @import "bootstrap.less";
 
-/* Using http://www.colourlovers.com/palette/1473/Ocean_Five */
+/* http://www.colourlovers.com/palette/1473/Ocean_Five */
+@invisible_ufo: rgb(0,160,176);
+@caribic_brown: rgb(106,74,60);
+@caribic_red: rgb(204,51,63);
+@caribic_sun: rgb(235,104,65);
+@caribic_daylight: rgb(237,201,81);
 
 @normal-color: #333;
 @normal-background-color: #fff;
 
-@event-color: #ddd;
-@event-background-color: rgb(215, 238, 233);
+@event-color: #333;
+// @event-background-color: rgb(215, 238, 233);
+// @event-background-color: rgb(200, 200, 200);
+@event-background-color: #fff;
 
 @sponsors-background-color: #EDC951;
 @about-background-color: #EB6841;
 
-@headings-font-family: "futura-pt",sans-serif;
+@font-family-sans-serif:  "museo-slab", "Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-family-serif:       Georgia, "Times New Roman", Times, serif;
+//** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
+@font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
+@font-family-base:        @font-family-sans-serif;
+
+@headings-font-family: "museo",sans-serif;
+@headings-font-weight: 500;
+
+@font-size-base: 16px;
 
 .filter(@arguments) {
     -webkit-filter: @arguments;
@@ -90,12 +106,29 @@ footer {
     }
 }
 
+@gamecraft-section-min-height: 40em;
+
+
+@gamecraft-dark-colour: #333;
+@gamecraft-light-colour: #fff;
+@gamecraft-title-colour: @caribic_daylight;
+@gamecraft-title-footer-colour: @caribic_sun;
+@gamecraft-description-colour: #fff;
+@gamecraft-theme-colour: @invisible_ufo;
+@gamecraft-judges-colour: @caribic_brown;
+@gamecraft-map-colour: @caribic_red;
+
+
+.gamecraft-colours(@colour) {
+    color: contrast(@colour, @gamecraft-dark-colour, @gamecraft-light-colour);
+    background-color: @colour;
+}
+
 .gamecraft {
     .banner {
         position: relative;
         text-align: center;
-        color: @event-color;
-        background-color: @event-background-color;
+        .gamecraft-colours(@gamecraft-title-colour);
         background-repeat: no-repeat;
         background-size: 100%;
         box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
@@ -103,64 +136,62 @@ footer {
         // .filter(blur(5px) saturate(50%));
 
         .title {
+            // text-shadow:
+            //     -0.1em -0.1em fadeout(@event-background-color, 70%),
+            //     -0.4em -0.4em #bbb;
             width: 100%;
             padding: 2em;
-            min-height: 400px;
-            background-color: fadeout(@event-background-color, 70%);
+            padding-bottom: 6em;
+            .gamecraft-colours(@gamecraft-title-colour);
+            // background-color: fade(@gamecraft-title-colour, 20%);
 
             h1 {
                 font-size: 72pt;
             }
+
+            .logo {
+                img {
+                    width: 200px;
+                    height: auto;
+                }
+            }
+
         }
 
         .footer {
             position: absolute;
             bottom: 0;
             width: 100%;
-            min-height: 50px;
-            background-color: rgba(0,0,0,0.5);
+            min-height: 4em;
+            .gamecraft-colours(@gamecraft-title-footer-colour);
         }
     }
 
     .description {
-        min-height: 300px;
+        // min-height: @gamecraft-section-min-height;
+        .gamecraft-colours(@gamecraft-description-colour);
     }
 
     .judges {
-        // min-height: 300px;
+        // min-height: @gamecraft-section-min-height;
+        .gamecraft-colours(@gamecraft-judges-colour);
     }
 
     .theme {
-        background-color: @event-background-color;
+        .gamecraft-colours(@gamecraft-theme-colour);
     }
 
     .map {
         width: 100%;
+        .gamecraft-colours(@gamecraft-map-colour);
 
         #map {
-            min-height: 400px;
-        }
-    }
-}
-
-.eventpage {
-    .banner {
-        color: @event-color;
-        background-color: @event-background-color;
-        box-shadow: inset 0 0 50px rgba(0,0,0,.2);
-        padding-top: 60px;
-        padding-bottom: 60px;
-        margin-bottom: 20px;
-
-        h1 {
-            margin-top: 0;
-            color: #222;
-            font-size: 72px;
-            text-shadow: 1px 1px 1px rgba(0,0,0,.2);
+            min-height: @gamecraft-section-min-height;
         }
     }
 
-    a {
-        color: #0E485A;
+    section {
+        padding-top: 2em;
+        padding-bottom: 2em;
     }
 }

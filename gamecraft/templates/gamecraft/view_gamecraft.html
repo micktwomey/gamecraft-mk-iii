@@ -1,6 +1,7 @@
 {% extends "gamecraft/base_gamecraft.html" %}
 
 {% load markdown %}
+{% load static %}
 {% load tz %}
 
 {% block title %}
@@ -10,13 +11,21 @@
 {% block body_class %}gamecraft{% endblock %}
 
 {% block content %}
-<div class="banner" style="background-image: url({% url 'view_gamecraft_background' slug=gamecraft.slug %})">
+{# <div class="banner" style="{% if gamecraft.background %}background-image: url({% url 'view_gamecraft_background' slug=gamecraft.slug %}){% endif %}"> #}
+<div class="banner">
   <div class="title">
-    <h1>{{gamecraft.title}}</h1>
-    <h2>{{gamecraft.location}}</h2>
-    {% timezone gamecraft.timezone %}
-    <h3>{{gamecraft.starts | date:"l, F n P T"}} to {{gamecraft.ends | date:"P"}}</h3>
-    {% endtimezone %}
+    <div class="row">
+      <div class="col-md-2 logo">
+        <img src="{% static 'img/gamecraft-logo-466x479.png' %}" title="GameCraft">
+      </div>
+      <div class="col-md-10">
+        <h1>{{gamecraft.title}}</h1>
+        <h2>{{gamecraft.location}}</h2>
+        {% timezone gamecraft.timezone %}
+        <h3>{{gamecraft.starts | date:"l, F n, P"}} to {{gamecraft.ends | date:"P T"}}</h3>
+        {% endtimezone %}
+      </div>
+    </div>
   </div>
   <div class="footer">
     <p>Sign Up!</p>
@@ -25,15 +34,8 @@
 
 <section class="theme">
   <div class="container">
-    <h1>Theme</h1>
+    <h1><span class="glyphicon glyphicon-heart-empty"></span> Theme</h1>
     {{gamecraft.theme|markdown}}
-  </div>
-</section>
-
-<section class="judges">
-  <div class="container">
-    <h1>Judges</h1>
-    {{gamecraft.judges|markdown}}
   </div>
 </section>
 
@@ -43,20 +45,35 @@
   </div>
 </section>
 
+{% if gamecraft.judges %}
+<section class="judges">
+  <div class="container">
+    <h1><span class="glyphicon glyphicon-eye-open"></span> Judges</h1>
+    {{gamecraft.judges|markdown}}
+  </div>
+</section>
+{% endif %}
+
 <section class="map">
-<h1>Where</h1>
+<div class="container">
+  <h1><span class="glyphicon glyphicon-globe"></span> Where</h1>
+  <h2>{{gamecraft.location}}</h2>
+</div>
+{% if gamecraft.location_latitude %}
 <div id="map"></div>
+{% endif %}
 </section>
 
-<div class="container">
-  {% if perms.gamecrafts.modify_gamecraft %}
-  <p><a href="{% url 'edit_gamecraft' slug=gamecraft.slug %}">Edit</a></p>
-  {% endif %}
-</div>
+{# <div class="container"> #}
+  {# {% if perms.gamecrafts.modify_gamecraft %} #}
+  {# <p><a href="{% url 'edit_gamecraft' slug=gamecraft.slug %}">Edit</a></p> #}
+  {# {% endif %} #}
+{# </div> #}
 {% endblock content %}
 
 {% block script %}
 {{ block.super }}
+{% if gamecraft.location_latitude %}
 <script type="text/javascript">
   var map = L.map('map', {dragging: false, scrollWheelZoom: false}).setView([{{gamecraft.location_latitude}}, {{gamecraft.location_longitude}}], 17);
   L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -64,4 +81,5 @@
     maxZoom: 18
   }).addTo(map);
 </script>
+{% endif %}
 {% endblock script %}
