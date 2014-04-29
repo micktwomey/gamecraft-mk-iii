@@ -10,8 +10,8 @@ DATABASES = {
         'NAME': 'gamecraft',
         'USER': 'docker',
         'PASSWORD': 'docker',
-        'HOST': os.environ["POSTGRESQL_PORT_5432_TCP_ADDR"],
-        'PORT': os.environ["POSTGRESQL_PORT_5432_TCP_PORT"],
+        'HOST': os.environ.get("POSTGRESQL_PORT_5432_TCP_ADDR", "localhost"),
+        'PORT': os.environ.get("POSTGRESQL_PORT_5432_TCP_PORT", "5432"),
     }
 }
 
@@ -37,6 +37,8 @@ LOGGING = {
 }
 
 MEDIA_ROOT = "/gamecraft/uploads"
+
+STATIC_ROOT = "/gamecraft/static"
 
 # Merge in /gamecraft/config/django.yaml if it exists
 try:
