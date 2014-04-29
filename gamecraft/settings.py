@@ -137,6 +137,8 @@ PIPELINE_CSS = {
     },
 }
 
+PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.uglifyjs.UglifyJSCompressor'
+
 PIPELINE_JS = {
     'gamecraft': {
         'source_filenames': (
