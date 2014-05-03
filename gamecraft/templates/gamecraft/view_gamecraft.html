@@ -27,17 +27,21 @@
       </div>
     </div>
   </div>
+  {% if gamecraft.show_signup %}
   <div class="footer">
     <p><a href="#" class="btn btn-success btn-lg" role="button">Sign Up!</a></p>
   </div>
+  {% endif %}
 </div>
 
+{% if gamecraft.show_theme %}
 <section class="theme">
   <div class="container">
     <h1><span class="glyphicon glyphicon-heart-empty"></span> Theme</h1>
     {{gamecraft.theme|markdown}}
   </div>
 </section>
+{% endif %}
 
 <section class="description">
   <div class="container">
@@ -80,6 +84,8 @@
     attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
     maxZoom: 18
   }).addTo(map);
+  var marker = L.marker([{{gamecraft.location_latitude}}, {{gamecraft.location_longitude}}]).addTo(map);
+  // marker.bindPopup("{{gamecraft.location}}");
 </script>
 {% endif %}
 {% endblock script %}

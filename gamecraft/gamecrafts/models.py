@@ -3,6 +3,7 @@ import logging
 
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.utils import timezone
 
 import pytz
 
@@ -61,6 +62,36 @@ class GameCraft(models.Model):
 
     def get_absolute_url(self):
         return reverse('view_gamecraft', kwargs={"slug": self.slug})
+
+    def started(self):
+        """Returns True if this gamecraft has started
+
+        Means it's currently on right now, or has been on (so finished GameCrafts count too).
+
+        """
+        now = timezone.now()
+        LOG.debug("Is {} >= {}?".format(now, self.starts))
+        return now >= self.starts
+
+    def finished(self):
+        """Returns True if this gamecraft has finished
+
+        """
+        now = timezone.now()
+        LOG.debug("Is {} >= {}?".format(now, self.ends))
+        return now >= self.ends
+
+    def show_theme(self):
+        """Returns True if the theme should be shown
+
+        """
+        return self.started() and self.theme
+
+    def show_signup(self):
+        """Returns True if the signup details should be shown
+
+        """
+        return not self.started()
 
 
 def get_upcoming_gamecrafts():

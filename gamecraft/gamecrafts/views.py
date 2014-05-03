@@ -35,6 +35,7 @@ def new_gamecraft(request):
 class GameCraftForm(forms.ModelForm):
     class Meta:
         model = GameCraft
+        exclude = []
 
 
 @permission_required('gamecrafts.modify_gamecraft')
