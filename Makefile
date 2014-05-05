@@ -21,6 +21,9 @@ migrate:
 runserver:
 	$(DOCKER_RUN_DJANGO_ADMIN) --name gamecraft -p 8000:8000 $(TAG) runserver 0.0.0.0:8000
 
+uwsgi:
+	$(DOCKER_RUN_INTERACTIVE) --name gamecraft -p 8000:8000 $(TAG)
+
 shell:
 	$(DOCKER_RUN_BASH) $(TAG) -i
 
