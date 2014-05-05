@@ -1,0 +1,8 @@
+---
+- hosts: gamecraft
+  roles:
+    - docker
+    - postgresql
+    # - memcached
+    # - gamecraft
+    # - varnish

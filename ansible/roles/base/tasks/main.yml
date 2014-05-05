@@ -1,0 +1,3 @@
+---
+- name: Upgrade packages
+  apt: upgrade=safe update_cache=yes
