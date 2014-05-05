@@ -59,6 +59,7 @@ class GameCraft(models.Model):
             ("modify_gamecraft", "Can create, edit and delete a GameCraft"),
         )
         verbose_name = "GameCraft"
+        ordering = ['-starts']
 
     def get_absolute_url(self):
         return reverse('view_gamecraft', kwargs={"slug": self.slug})

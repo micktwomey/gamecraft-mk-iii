@@ -1,0 +1,37 @@
+{% extends "gamecraft/base_gamecraft.html" %}
+
+{% load markdown %}
+{% load static %}
+{% load tz %}
+
+{% block title %}
+  Ghosts of GameCraft Past and Future
+{% endblock title %}
+
+{% block body_class %}gamecrafts{% endblock %}
+
+{% block content %}
+{% if gamecrafts %}
+<section class="gamecrafts">
+  <div class="container">
+    {% for gamecraft in gamecrafts %}
+      <div class="gamecraft">
+        <a href="{% url 'view_gamecraft' gamecraft.slug %}">
+          <div class="title">
+            <h1>{{gamecraft.title}}</h1>
+            <h2>{{gamecraft.location}}</h2>
+            {% timezone gamecraft.timezone %}
+            <h3>{{gamecraft.starts | date:"l, F n Y, P T"}}</h3>
+            {% endtimezone %}
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% else %}
+<section>
+  <p>Wow, no GameCrafts? You must be looking at a site without a working database!</p>
+</section>
+{% endif %}
+{% endblock content %}

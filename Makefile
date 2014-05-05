@@ -25,7 +25,7 @@ shell:
 	$(DOCKER_RUN_BASH) $(TAG) -i
 
 test:
-	$(DOCKER_RUN_DJANGO_ADMIN) $(TAG) test gamecraft
+	$(DOCKER_RUN_DJANGO_ADMIN) $(TAG) test gamecraft.gamecrafts
 
 startdb:
 	docker pull micktwomey/postgresql:latest
@@ -47,9 +47,12 @@ dropdb:
 	docker run --rm -i -t $(LINKS) --entrypoint=/bin/bash micktwomey/postgresql -c 'dropdb  -U docker -h $$POSTGRESQL_PORT_5432_TCP_ADDR -p $$POSTGRESQL_PORT_5432_TCP_PORT gamecraft'
 
 dumpdata:
-	$(DOCKER_RUN_DJANGO_ADMIN) $(TAG) dumpdata --indent=2 --format=yaml --natural-foreign  --natural-primary auth.user sites.site socialaccount | egrep -v 'RemovedInDjango18Warning|^  class SocialAppForm)' > backups/site_data.yaml
-	$(DOCKER_RUN_DJANGO_ADMIN) $(TAG) dumpdata --indent=2 --format=yaml --natural-foreign  --natural-primary gamecrafts | egrep -v 'RemovedInDjango18Warning|^  class SocialAppForm)' > backups/gamecrafts.yaml
+	$(DOCKER_RUN_DJANGO_ADMIN) $(TAG) dumpdata --indent=2 --format=json --natural-foreign  --natural-primary auth.user sites.site socialaccount | egrep -v -e 'RemovedInDjango18Warning|^\s*class SocialAppForm.*)' > backups/site_data.json
+	$(DOCKER_RUN_DJANGO_ADMIN) $(TAG) dumpdata --indent=2 --format=json --natural-foreign  --natural-primary gamecrafts | egrep -v -e 'RemovedInDjango18Warning|^\s*class SocialAppForm.*)' > backups/gamecrafts.json
 
 loaddata:
-	$(DOCKER_RUN_DJANGO_ADMIN) $(TAG) loaddata /gamecraft/backups/site_data.yaml
-	$(DOCKER_RUN_DJANGO_ADMIN) $(TAG) loaddata /gamecraft/backups/gamecrafts.yaml
+	$(DOCKER_RUN_DJANGO_ADMIN) $(TAG) loaddata /gamecraft/backups/site_data.json
+	$(DOCKER_RUN_DJANGO_ADMIN) $(TAG) loaddata /gamecraft/backups/gamecrafts.json
+
+update_fixtures: dumpdata
+	cp $(CURDIR)/backups/gamecrafts.json $(CURDIR)/gamecraft/gamecrafts/fixtures/gamecrafts.json

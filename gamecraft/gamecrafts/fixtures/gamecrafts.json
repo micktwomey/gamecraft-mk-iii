@@ -1,0 +1,87 @@
+
+[
+{
+  "model": "gamecrafts.gamecraft",
+  "fields": {
+    "header_background": "gamecraft/background/2014/04/25/BaCmrIL.png",
+    "timezone": "Europe/London",
+    "location": "Skills Matter, 116-120 Goswell Rd, London, EC1V 7DP, United Kingdom",
+    "location_longitude": "-0.0991420",
+    "content": "# GameCraft is Back in London!\r\n\r\nWe\u2019re delighted to announce that GameCraft is heading to London this August thanks to the good folks at Skills Matter. They\u2019re a great group of people who are really passionate about getting folks working together, and we\u2019re thrilled to be working with them.\r\n\r\n> Skills Matter\u2019s mission is to promote continuous learning and innovation in software. More than 35,000 people get together at Skills Matter each year, everyone with the goal of improving themselves and our community. We welcomed 42,000 face-to-face visits to our talks, workshops and gatherings in the last 12 months and our SkillsCast videos were seen by several hundreds of thousands of passionate developers too. Follow us on twitter [@skillsmatter](https://twitter.com/skillsmatter) #skillsmatter\r\n>\r\n> - [Skills Matter](http://skillsmatter.com/)\r\n\r\nThe event will be taking place on Saturday  the 10th of August at the [Skills Matter eXchange](http://skillsmatter.com/go/find-us) in Clerkenwell, Central London.\r\n\r\n# SPONSORS\r\n[GameSys](http://www.gamesyscorporate.com/) || [sixminute Games](http://www.sixminute.com/)\r\n\r\n[Unity3d](http://unity3d.com) || [MaKeyMaKey](http://makeymakey.com) || [Gamestop Ireland](http://gamestop.ie) || [O'Reilly Books](http://oreilly.com) || [BatCat Games](http://batcatgames.com) || [MonoGame](http://www.monogame.net/)\r\n\r\n<img src=\"http://dublingamecraft.com/wp-content/uploads/2013/08/London-aug6.png\" alt=\"\" width=\"309\" height=\"568\" usemap=\"#map\" border=\"0\" /></p>\r\n<map name=\"map\">\r\n<area shape=\"rect\" coords=\"154,417,304,567\" href=\"http://batcatgames.com\" alt=\"Thanks\" /></map>\r\n<p><a href=\"http://monogame.net\"><img src=\"http://i.imgur.com/h2lXjz6.png\" alt=\"\" /></a></p>",
+    "location_latitude": "51.5246170",
+    "public": true,
+    "ends": "2014-05-26T20:00:00Z",
+    "created": "2014-04-23T21:47:49.875Z",
+    "theme": "> Something, something, something, darkside\r\n\r\nLord Palpatin",
+    "starts": "2014-05-26T08:00:00Z",
+    "title": "London GameCraft 2014",
+    "judges": "- Lord Vadar\r\n- Lord Palpatin\r\n- Luke",
+    "slug": "london-gamecraft-2014",
+    "modified": "2014-04-27T22:29:45.321Z"
+  },
+  "pk": 1
+},
+{
+  "model": "gamecrafts.gamecraft",
+  "fields": {
+    "header_background": "",
+    "timezone": "Europe/Dublin",
+    "location": "DIT Kevin Street, D1",
+    "location_longitude": "-6.2679560",
+    "content": "Dublin GameCraft is a game jam style event to be held in DIT, Kevin Street, Ireland on the 25th of February and it\u2019s kicking off at 9am \u2013 good job there\u2019s a free breakfast provided then! Oh and free lunch too, this is like the best jam ever, no?\r\n\r\nAnyway, enough of the food (whimper), the Dublin Gamecraft is an 8 hour game jam \u2013 yes just 8 hours to make a game \u2013 and it\u2019s open to anyone who can attend. Development teams can be pre-determined or decided on the day (although the latter will eat into development time). There\u2019s even a little Google group for people to meet up and make teams. You\u2019ll be pleased to hear that you can use whatever game building tools you like (Unity/GameMaker/UDK etc), and target whatever platform you\u2019re most familiar with (Windows/iPad/Xbox).\r\n\r\n# SPONSORS\r\n\r\n## Our host:\r\n<p><img title=\"DIT\" src=\"http://28.media.tumblr.com/tumblr_lzqwzn6MOc1r67s55o1_250.jpg\" alt=\"DIT\" /></p>\r\n\r\n## Sponsored by:\r\n<p><img title=\"Demonware\" src=\"http://python.ie/static/images/sponsors/main_logos/demonware.png\" alt=\"Demonware\" /><br />\r\n<img src=\"http://farm8.staticflickr.com/7175/6499601165_7bca222999_z.jpg\" title=\"Open Emotion\" alt=\"Open Emotion\"/><br />\r\n<img src=\"http://www.jetbrains.com/img/logos/logo_jetbrains.gif\" alt=\"JetBrains\" title=\"JetBrains\"/><br />\r\n<img src=\"http://slodive.com/wp-content/uploads/2011/07/mascot-designs/swrve.jpg\" alt=\"Swrve\" title=\"Swrve\"/><br />\r\n<img src=\"http://xamarin.com/resources/design/site-id-light.png\" alt=\"Xamarin\" title=\"Xamarin\"/><br />\r\n<img src=\"http://python.ie/static/images/sponsors/main_logos/microsoft.png\" title=\"Microsoft\" alt=\"Microsoft\"/></p>\r\n\r\n## Lunch provided by\r\n<p><img src=\"http://www.sweetcicely.ie/xfiles/images/sweetcicelylogo.gif\" title=\"Sweet Cicely\" alt=\"Sweet Cicely\"/></p>",
+    "location_latitude": "53.3368370",
+    "public": true,
+    "ends": "2012-02-25T21:00:00Z",
+    "created": "2014-05-03T18:48:11.013Z",
+    "theme": "> Dinosaur Angst",
+    "starts": "2012-02-25T09:00:00Z",
+    "title": "Dublin GameCraft 1",
+    "judges": "## Adam Renardson \u2013 Siliconrepublic.com\r\n\r\nI am currently head of online and new media and Siliconrepublic.com and somehow found myself writing video game reviews for Siliconrepublic since arriving in 2009. I would profess to being a seasoned gamer with (un)fond memories of EGA graphics and 64kb RAM being \u201ctop of the range\u201d and blowing furiously into C64 cartridges in an attempt to prolong their gaming life. Outside of gaming I enjoy music, films and having my heart broken every season by Arsenal.\r\n\r\n## Dave McCabe\r\n\r\nDave McCabe is a film director, writer and script editor who has worked on more things than he\u2019d care to remember. He is currently studying an MSc in Film wherein his speciality is story and character development. The first video game he played was a version of \u2018Green Beret\u2019 that was so old he can\u2019t even find a copy on youtube\u2026\r\n\r\nOnline, he lives at davetheallthing.com.\r\n\r\n## Eoin Meagher\r\n\r\nEoin started off his gaming obsession with the mighty plastic grey box that was the Commodore 64. Years of torment from insanely difficult gaming lead him to the PC generation and he fell in love with games all over again. Having worked in GAME and computer hardware centers he went back to college to Carlow IT and got a degree in a Bachelor of Science degree in Computer Games Development. Now a big fan of Unity3d he champions the indy cause, esp the IrishGameDev scene and will gladly talk for hours and hours about games, to any person who\u2019s not abe to escape\u2026. you have been warned!\r\n\r\n## Joseph Kehoe\r\n\r\nThe first computer games Joseph Kehoe played were on a Dragon 32 but that was in the previous millennium. He graduated from UCD with a BSc (Computer Science in 1990 and an MSc (AI) in 1993. Since then he have worked mainly in Education teaching at all levels from Certificate to MSc. He has worked in industry for a number of years but prefers the ivory tower that is education. Currently he lectures Software Engineering and Artificial Intelligence (amongst other things) in IT Carlow on the Computer Games Development BSc. In his spare time he is interested in scripting languages and parallel programming. Rumour has it that he is actually a cyborg and talks about himself in the third person.\r\n\r\n## Joseph Murphy and Shane Willoughby Biog\r\n\r\nThe Gaming Liberty is an award winning founded by Joseph Murphy and Shane Willoughby in 2009. Two avid and enthusiastic gamers, they quickly established The Gaming Liberty as a credible, friendly and up-to-date gaming website. Covering as many facets of news as possible, TGL also aims to bring original and unique content to our readership.\r\n",
+    "slug": "dublin-gamecraft-1",
+    "modified": "2014-05-03T20:06:22.331Z"
+  },
+  "pk": 2
+},
+{
+  "model": "gamecrafts.gamecraft",
+  "fields": {
+    "header_background": "",
+    "timezone": "Europe/Dublin",
+    "location": "Engine Yard, The Warehouse, 2nd Floor, 35 Barrow Street, Dublin 2, Ireland",
+    "location_longitude": "-6.2370390",
+    "content": "Whats 10 feet tall, has a shock of red hair and shoots cats out of it\u2019s eyeballs? We don\u2019t know!! But we expect we\u2019ll find out during  Dublin GameCraft, but only if you come and make it!\r\n\r\n## Here\u2019s how it works:\r\n* You have twelve hours to make a game. Starting at 9am\r\n* The theme will be advertised during breakfast (more details on this soon)\r\n* Work on your own or with a team. You can form a team on the day if you like, but remember you only have 12 hours!\r\n* Use whatever platform or framework you like\r\n* Judges review and vote on the games\r\n* Profit  Prizes(will update soon).\r\n\r\n### Thanks to Engine Yard and Eamon Leonard for the venue for this event.\r\n<a href=\"http://www.engineyard.com/\" target=\"_blank\"><img class=\"alignleft\" title=\"Engine Yard\" src=\"http://blog.newrelic.com/wp-content/uploads/engine_yard_logo.jpg\" alt=\"Engine Yard\" width=\"83\" height=\"136\" /></a>",
+    "location_latitude": "53.3407599",
+    "public": true,
+    "ends": "2012-11-17T21:00:00Z",
+    "created": "2014-05-03T19:36:39.428Z",
+    "theme": "<img src=\"http://dublingamecraft.com/wp-content/uploads/2012/11/theme.jpg\">",
+    "starts": "2012-11-17T09:00:00Z",
+    "title": "DUBLIN GAMECRAFT II",
+    "judges": "## FROM THE (GAMECRAFT) JUDGES WITH LOVE\r\n\r\nAt 9am you start coding and you stop at 9pm sharp. Then (at least) one of you team should be on hand to problem-solve and guide the judges as we go around individually and play them. We hope to get to all your games, but will endeavour to get at least three of us to play every game.\r\n\r\nWe\u2019ll judge your game on the criteria listed below, score it out of 50 and then reconvene to discuss and average our scores to give your game its final result.\r\n\r\nWe aim to have this done by 11pm, when we will announce the top three games and any honourable mentions before giving out prizes and whatnot.\r\n\r\nJudges notes and game scores will not be released.\r\n\r\n### CRITERIA\r\n\r\nYour game will be judged on the following criteria:\r\n\r\n- Gameplay (mechanics, design, etc)\r\n- Art (graphics, audio)\r\n- Technology (programming, platforms, technical innovation)\r\n- Idea (a measure of how well you implement the theme, story, that kinda stuff)\r\n- How complete the game you make is (a fully functional game and polish such as menus, start screens, cut-scenes, etc )",
+    "slug": "dublin-gamecraft-ii",
+    "modified": "2014-05-03T20:06:12.475Z"
+  },
+  "pk": 3
+},
+{
+  "model": "gamecrafts.gamecraft",
+  "fields": {
+    "header_background": "",
+    "timezone": "Europe/Dublin",
+    "location": "Various Irish Indie Studios",
+    "location_longitude": null,
+    "content": "# Open your wallets, friends of game development, Charity GameCraft is coming!\r\n\r\nFor one day only, some of the most excellent companies in the Irish game development scene will be making sparkly game development magic happen in various offices around Ireland, and streaming the event live for your entertainment (link will be available at this website during the event). From **9am to 6pm** on Tuesday **11th of December**, watch your favourite game developers flounder about as they try to make a game from scratch in just 9 hours! That would be a great thing in and of itself, but there\u2019s more! In the spirit of Christmas, we\u2019re offering you an incredible opportunity to imbue within yourself a feeling of enormous well-being. \u201cHow\u201d, I hear you cry. Simple. Give us your money\u2026and then we\u2019ll give it to charity. All of it. Every last kind penny. To the ISPCA to be specific. By donating you will also get all the games made during the day and [P-3 Biotic](http://www.desura.com/games/p-3-biotic) from [BatCat Games](http://batcatgames.com/blog/)\r\n\r\nSo make a puppy/kitten/horse thing happy. Tune in online next Tuesday and join in the festivities.\r\n\r\n## Some of the developers involved (alphabetically):\r\n\r\n* [BatCat Games](http://batcatgames.com/blog/)\r\n* [BitSmith Games](http://bitsmithgames.com/)\r\n* [Bright Head Games Studio](http://brightheadgames.com/)\r\n* [Elaine Reynolds](https://twitter.com/Elaine_Reynolds)\r\n* John Kelly\r\n* [Giant Oak Studios](http://www.giantoakstudios.com/)\r\n* [Pump Station Studios](http://www.pumpstationstudios.com/)\r\n* [Super Quest](http://ie.wayra.org/en/startup/superquest)\r\n\r\n# Where to donate\r\n[http://www.mycharity.ie/event/charitygamecraft](http://www.mycharity.ie/event/charitygamecraft)",
+    "location_latitude": null,
+    "public": true,
+    "ends": "2012-12-11T18:00:00Z",
+    "created": "2014-05-03T20:10:29.760Z",
+    "theme": "> Envision Christmas in the year 2525\r\n\r\n<img src=\"http://dublingamecraft.com/wp-content/uploads/2012/12/image-300x270.jpeg\">",
+    "starts": "2012-12-11T09:00:00Z",
+    "title": "Charity GameCraft 2012",
+    "judges": "",
+    "slug": "charity-gamecraft-2012",
+    "modified": "2014-05-03T20:10:29.760Z"
+  },
+  "pk": 4
+}
+]
