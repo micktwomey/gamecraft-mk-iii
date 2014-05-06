@@ -6,8 +6,11 @@
 
 - name: Add docker repository
   apt_repository: repo='deb http://get.docker.io/ubuntu docker main' state=present
-  notify:
-    - Add docker repository
+  register: apt_repository_changed
+
+- name: Update apt cache
+  apt: update_cache=yes
+  when: apt_repository_changed.changed
 
 - name: Add docker
   apt: pkg=lxc-docker state=present
@@ -22,4 +25,4 @@
   pip: name=docker-py state=present
 
 - name: Run docker hello world
-  docker: command='/bin/echo hello world' image=ubuntu detach=False
+  docker: command='/bin/echo hello world' image=ubuntu:14.04 detach=False

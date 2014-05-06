@@ -1,8 +1,8 @@
 ---
-- hosts: gamecraft
+- hosts: gamecraft.twomeylee.name
   roles:
     - docker
     - postgresql
-    # - memcached
-    # - gamecraft
+    - memcached
+    - gamecraft
     # - varnish

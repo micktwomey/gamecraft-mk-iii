@@ -1,0 +1,7 @@
+---
+- name: Ensure gamecraft is started
+  docker:
+    image=micktwomey/gamecraft:latest
+    name=gamecraft
+    state=running
+    links=postgresql:postgresql,memcached:memcached
