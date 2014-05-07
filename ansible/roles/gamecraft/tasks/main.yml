@@ -1,7 +1,19 @@
 ---
+- name: Create volume folder structure
+  file: dest={{ item.dest }} state=directory
+  with_items:
+    - dest: /gamecraft/config
+    - dest: /gamecraft/logs
+    - dest: /gamecraft/uploads
+    - dest: /gamecraft/backups
+
+- name: Write out gamecraft django.yml
+  template: src=django.yml.j2 dest=/gamecraft/config/django.yml mode=0644
+
 - name: Ensure gamecraft is started
   docker:
     image=micktwomey/gamecraft:latest
     name=gamecraft
     state=running
     links=postgresql:postgresql,memcached:memcached
+    volumes=/gamecraft/config:/gamecraft/config,/gamecraft/logs:/gamecraft/logs,/gamecraft/uploads:/gamecraft/uploads,/gamecraft/backups:/gamecraft/backups

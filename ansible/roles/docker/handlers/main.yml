@@ -1,3 +1,0 @@
----
-- name: Add docker repository
-  apt: update_cache=yes

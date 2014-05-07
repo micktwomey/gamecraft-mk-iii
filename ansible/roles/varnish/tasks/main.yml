@@ -1,0 +1,8 @@
+---
+- name: Ensure varnish is started
+  docker:
+    image=micktwomey/django-varnish
+    name=varnish
+    state=running
+    ports=80:6081
+    links=gamecraft:backend
