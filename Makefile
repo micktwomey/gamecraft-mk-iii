@@ -1,14 +1,15 @@
-MOUNTS=-v /vagrant:/gamecraft/src/development:rw \
-	-v /vagrant/logs:/gamecraft/logs:rw \
-	-v /vagrant/uploads:/gamecraft/uploads:rw \
-	-v /vagrant/backups:/gamecraft/backups:rw \
-	-v /vagrant/config:/gamecraft/config:rw
+MOUNT_PREFIX=/vagrant
+MOUNTS=-v $(MOUNT_PREFIX):/gamecraft/src/development:rw \
+	-v $(MOUNT_PREFIX)/logs:/gamecraft/logs:rw \
+	-v $(MOUNT_PREFIX)/uploads:/gamecraft/uploads:rw \
+	-v $(MOUNT_PREFIX)/backups:/gamecraft/backups:rw \
+	-v $(MOUNT_PREFIX)/config:/gamecraft/config:rw
 LINKS=--link postgresql:postgresql
 DOCKER_RUN=docker run --rm $(MOUNTS) $(LINKS)
 DOCKER_RUN_INTERACTIVE=$(DOCKER_RUN) -i -t
 DOCKER_RUN_DJANGO_ADMIN=$(DOCKER_RUN_INTERACTIVE) --entrypoint=/usr/local/bin/django-admin
 DOCKER_RUN_BASH=$(DOCKER_RUN_INTERACTIVE) --entrypoint=/bin/bash
-TAG=micktwomey/gamecraft
+TAG=micktwomey/gamecraft:0.0.8
 
 all:
 
