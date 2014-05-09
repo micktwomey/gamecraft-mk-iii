@@ -50,8 +50,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define :gamecraft do |gamecraft|
     gamecraft.vm.hostname = "gamecraft.vagrant"
-    gamecraft.vm.network "forwarded_port", guest: 8000, host: 8000
     gamecraft.vm.network "forwarded_port", guest: 4243, host: 4243
+    gamecraft.vm.network "forwarded_port", guest: 6081, host: 6081
+    gamecraft.vm.network "forwarded_port", guest: 8000, host: 8000
     gamecraft.vm.network "private_network", ip: "192.168.33.80"
     gamecraft.vm.provider "virtualbox" do |vb|
       vb.customize ["modifyvm", :id, "--memory", "384"]
