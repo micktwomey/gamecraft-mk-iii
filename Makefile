@@ -16,7 +16,7 @@ build:
 	docker pull $(TAG):latest
 
 migrate:
-	$(DOCKER_RUN_INTERACTIVE) $(TAG) migrate
+	$(DOCKER_RUN_DJANGO_ADMIN) $(TAG) migrate
 
 runserver:
 	$(DOCKER_RUN_DJANGO_ADMIN) --name gamecraft -p 8000:8000 $(TAG) runserver 0.0.0.0:8000
