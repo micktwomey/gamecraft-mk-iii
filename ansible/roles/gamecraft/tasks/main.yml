@@ -1,4 +1,7 @@
 ---
+- name: Install jq
+  apt: pkg=jq state=present
+
 - name: Create volume folder structure
   file: dest={{ item.dest }} state=directory
   with_items:
@@ -17,8 +20,33 @@
   notify:
     - Restart gamecraft
 
+- name: Check for old GameCraft versions
+  shell: >
+    docker inspect gamecraft 2>/dev/null | jq --raw-output '.[0].Config.Image // "{{gamecraft_image}}"'
+  register: current_version
+  tags:
+    - gamecraft
+    - upgrade
+
+- name: Stop old GameCraft
+  docker: >
+    image={{current_version.stdout}}
+    name=gamecraft
+    state=killed
+  when: current_version.stdout != gamecraft_image
+  tags:
+    - gamecraft
+    - upgrade
+
+- name: Remove old GameCraft
+  command: docker rm gamecraft
+  when: current_version.stdout != gamecraft_image
+  tags:
+    - gamecraft
+    - upgrade
+
 - name: Ensure gamecraft is started
-  docker:
+  docker: >
     image={{gamecraft_image}}
     name=gamecraft
     state=running
@@ -27,3 +55,5 @@
   tags:
     - gamecraft
     - docker
+  notify:
+    - restart varnish
