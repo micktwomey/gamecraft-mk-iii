@@ -6,14 +6,24 @@
     - dest: /gamecraft/logs
     - dest: /gamecraft/uploads
     - dest: /gamecraft/backups
+  tags:
+    - gamecraft
 
 - name: Write out gamecraft django.yml
   template: src=django.yml.j2 dest=/gamecraft/config/django.yml mode=0644
+  tags:
+    - config
+    - gamecraft
+  notify:
+    - Restart gamecraft
 
 - name: Ensure gamecraft is started
   docker:
-    image=micktwomey/gamecraft:latest
+    image={{gamecraft_image}}
     name=gamecraft
     state=running
-    links=postgresql:postgresql,memcached:memcached
-    volumes=/gamecraft/config:/gamecraft/config,/gamecraft/logs:/gamecraft/logs,/gamecraft/uploads:/gamecraft/uploads,/gamecraft/backups:/gamecraft/backups
+    links={{gamecraft_links}}
+    volumes={{gamecraft_volumes}}
+  tags:
+    - gamecraft
+    - docker

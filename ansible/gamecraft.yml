@@ -6,7 +6,8 @@
     - memcached
     - gamecraft
     - varnish
-
+  vars:
+    include: vars/gamecraft.yml
 
 # Manual one off setup steps:
 # docker run --rm -i -t --link postgresql:postgresql --entrypoint=/bin/bash micktwomey/postgresql -c 'createdb -E UTF-8 -T template0 -O docker -U docker -h $POSTGRESQL_PORT_5432_TCP_ADDR -p $POSTGRESQL_PORT_5432_TCP_PORT gamecraft'
