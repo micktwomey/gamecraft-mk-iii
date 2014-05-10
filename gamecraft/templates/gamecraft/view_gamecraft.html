@@ -79,6 +79,7 @@
 {{ block.super }}
 {% if gamecraft.location_latitude %}
 <script type="text/javascript">
+  L.Icon.Default.imagePath = "{% static 'js/images' %}";
   var map = L.map('map', {dragging: false, scrollWheelZoom: false}).setView([{{gamecraft.location_latitude}}, {{gamecraft.location_longitude}}], 17);
   L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
