@@ -64,15 +64,27 @@ class GameCraft(models.Model):
     def get_absolute_url(self):
         return reverse('view_gamecraft', kwargs={"slug": self.slug})
 
+    def state(self):
+        """Returns the current state of this gamecraft
+
+        One of started, finished and upcoming
+        """
+        if self.started():
+            return "started"
+        if self.finished():
+            return "finished"
+        if self.upcoming():
+            return "upcoming"
+
     def started(self):
         """Returns True if this gamecraft has started
 
-        Means it's currently on right now, or has been on (so finished GameCrafts count too).
+        Means it's currently on right now, not finished or from the future.
 
         """
         now = timezone.now()
-        LOG.debug("Is {} >= {}?".format(now, self.starts))
-        return now >= self.starts
+        LOG.debug("Is {} <= {} <= {}?".format(self.starts, now, self.ends))
+        return self.starts <= now <= self.ends
 
     def finished(self):
         """Returns True if this gamecraft has finished
@@ -81,6 +93,14 @@ class GameCraft(models.Model):
         now = timezone.now()
         LOG.debug("Is {} >= {}?".format(now, self.ends))
         return now >= self.ends
+
+    def upcoming(self):
+        """Returns True if this gamecraft is from the future
+
+        """
+        now = timezone.now()
+        LOG.debug("Is {} <= {}?".format(now, self.starts))
+        return now <= self.starts
 
     def show_theme(self):
         """Returns True if the theme should be shown
@@ -92,13 +112,21 @@ class GameCraft(models.Model):
         """Returns True if the signup details should be shown
 
         """
-        return not self.started()
+        return self.upcoming()
 
 
 def get_upcoming_gamecrafts():
-    """Returns a list of all published upcoming gamecrafts (or current)
+    """Returns a dict of all published upcoming gamecrafts (or current)
+
+    Grouped by "started" and "upcoming".
 
     """
+    gamecrafts = {}
     now = datetime.datetime.utcnow().replace(tzinfo=pytz.UTC)
     LOG.debug("Filtering with now={!r}".format(now))
-    return GameCraft.published.filter(ends__gte=now).order_by("starts")
+    for gc in GameCraft.published.filter(ends__gte=now).order_by("starts"):
+        if gc.started():
+            gamecrafts.setdefault("started", []).append(gc)
+        else:
+            gamecrafts.setdefault("upcoming", []).append(gc)
+    return gamecrafts

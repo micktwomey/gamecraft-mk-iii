@@ -28,8 +28,9 @@
 {% if gamecrafts %}
 <section class="gamecrafts">
   <div class="container">
-    <h1>Coming Soon</h1>
-    {% for gamecraft in gamecrafts %}
+  {% if gamecrafts.started %}
+    <h1>On Now!</h1>
+    {% for gamecraft in gamecrafts.started %}
       <div class="gamecraft">
         <a href="{% url 'view_gamecraft' gamecraft.slug %}">
           <div class="title">
@@ -42,6 +43,24 @@
         </a>
       </div>
     {% endfor %}
+  {% endif %}
+
+  {% if gamecrafts.upcoming %}
+    <h1>Coming Soon</h1>
+    {% for gamecraft in gamecrafts.upcoming %}
+      <div class="gamecraft">
+        <a href="{% url 'view_gamecraft' gamecraft.slug %}">
+          <div class="title">
+            <h1>{{gamecraft.title}}</h1>
+            <h2>{{gamecraft.location}}</h2>
+            {% timezone gamecraft.timezone %}
+            <h3>{{gamecraft.starts | date:"l, F n, P T"}}</h3>
+            {% endtimezone %}
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  {% endif %}
   </div>
 </section>
 {% endif %}
