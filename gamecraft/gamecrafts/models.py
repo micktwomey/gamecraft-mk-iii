@@ -130,3 +130,16 @@ def get_upcoming_gamecrafts():
         else:
             gamecrafts.setdefault("upcoming", []).append(gc)
     return gamecrafts
+
+
+class Attachment(models.Model):
+    """A generic attachment for Games and GameCrafts
+
+    """
+    created = models.DateTimeField(auto_now_add=True, help_text="When this was created.")
+    modified = models.DateTimeField(auto_now=True, help_text="When this was last modified.")
+
+    comment = models.TextField(blank=True, help_text="Optional comment on the image (Markdown encouraged).")
+    attachment = models.FileField(blank=True, upload_to="gamecraft/attachments/%Y/%m/%d")
+    url = models.CharField(max_length=1000, blank=True, help_text="URL to fetch file from")
+    gamecraft = models.ForeignKey(GameCraft, blank=True, null=True, on_delete=models.SET_NULL)
