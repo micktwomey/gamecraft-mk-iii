@@ -1,5 +1,5 @@
 ---
-- name: Restart gamecraft
+- name: restart gamecraft
   docker:
     image={{gamecraft_image}}
     name=gamecraft

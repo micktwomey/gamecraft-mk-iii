@@ -1,5 +1,5 @@
 ---
-gamecraft_version: 0.0.9-1
+gamecraft_version: 0.0.10-1
 gamecraft_image: micktwomey/gamecraft:{{gamecraft_version}}
 gamecraft_links: postgresql:postgresql,memcached:memcached
 gamecraft_volumes: /gamecraft/config:/gamecraft/config,/gamecraft/logs:/gamecraft/logs,/gamecraft/uploads:/gamecraft/uploads,/gamecraft/backups:/gamecraft/backups

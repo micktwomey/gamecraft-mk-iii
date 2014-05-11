@@ -6,3 +6,6 @@
     state=running
     ports=80:6081
     links=gamecraft:backend
+  tags:
+    - varnish
+    - docker
