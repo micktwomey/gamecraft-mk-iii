@@ -1,0 +1,20 @@
+{% extends "admin/change_form.html" %}
+
+{% block extrahead %}
+{{ block.super }}
+{{ media }}
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//api.filepicker.io/v1/filepicker.js"></script>
+<script type="text/javascript">
+filepicker.setKey("AJeqQynQvQ6nhUdHObyBAz");
+
+$(function() {
+    console.log("Hello");
+    $("#id_logo_url").each(function(index) {
+        console.log(this);
+        this.type = "filepicker-dragdrop";
+        filepicker.constructWidget(this);
+    });
+});
+</script>
+{% endblock %}

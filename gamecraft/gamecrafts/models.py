@@ -1,11 +1,14 @@
 import datetime
 import logging
 
+import django.core.files.base
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils import timezone
 
 import pytz
+
+import requests
 
 LOG = logging.getLogger(__name__)
 
@@ -106,7 +109,7 @@ class GameCraft(models.Model):
         """Returns True if the theme should be shown
 
         """
-        return self.started() and self.theme
+        return True if (self.started() or self.finished()) and self.theme else False
 
     def show_signup(self):
         """Returns True if the signup details should be shown
@@ -132,14 +135,63 @@ def get_upcoming_gamecrafts():
     return gamecrafts
 
 
-class Attachment(models.Model):
-    """A generic attachment for Games and GameCrafts
+class Sponsor(models.Model):
+    """A GameCraft Sponsor
+
+    Can be re-used across events and sponsorships.
 
     """
     created = models.DateTimeField(auto_now_add=True, help_text="When this was created.")
     modified = models.DateTimeField(auto_now=True, help_text="When this was last modified.")
 
-    comment = models.TextField(blank=True, help_text="Optional comment on the image (Markdown encouraged).")
-    attachment = models.FileField(blank=True, upload_to="gamecraft/attachments/%Y/%m/%d")
-    url = models.CharField(max_length=1000, blank=True, help_text="URL to fetch file from")
-    gamecraft = models.ForeignKey(GameCraft, blank=True, null=True, on_delete=models.SET_NULL)
+    slug = models.SlugField(max_length=500, help_text="Short name of sponsor.")
+    name = models.CharField(max_length=500, unique=True, help_text="Name of sponsor.")
+    url = models.URLField(max_length=500, help_text="URL of sponsor's site.")
+
+    logo_url = models.URLField(max_length=500, blank=True, null=True, help_text="URL to download logo from instead of direct upload.")
+    logo = models.ImageField(blank=True, null=True, help_text="The image used for the sponsor logo", upload_to="gamecraft/sponsors/%Y/%m/%d")
+
+    def __str__(self):
+        return "{self.slug} {self.name}".format(self=self)
+
+
+def update_image_from_url(instance, url_attr, image_attr, save=False):
+    """Fetches the image data from the url of the instance and sets it
+
+    Used in conjunction with filepicker.io or a plain url
+
+    Use save=True to trigger a save() on the instance.
+
+    """
+    url = getattr(instance, url_attr)
+    if url:
+        LOG.info("Fetching {} for {}".format(url, instance))
+        response = requests.get(url)
+        LOG.info("Fetched {} and got {}: {}".format(url, response, response.headers))
+        if response.status_code == 200:
+            filename = response.headers["X-File-Name"]
+            LOG.info("Got filename {} for url {}".format(filename, url))
+            image = getattr(instance, image_attr)
+            image.save(filename, django.core.files.base.ContentFile(response.content), save=save)
+
+
+class Sponsorship(models.Model):
+    """A sponsorship (by a sponsor)
+
+    Can be a set period of time or for a particular gamecraft
+
+    """
+    created = models.DateTimeField(auto_now_add=True, help_text="When this was created.")
+    modified = models.DateTimeField(auto_now=True, help_text="When this was last modified.")
+
+    sponsor = models.ForeignKey(Sponsor)
+
+    description = models.TextField(blank=True, help_text="Optional blurb about this sponsorship (Markdown). Most likely won't get used yet :)")
+
+    starts = models.DateTimeField(help_text="The time the sponsorship starts.")
+    ends = models.DateTimeField(help_text="The time the sponsorship ends.")
+
+    gamecraft = models.ForeignKey(GameCraft, blank=True, null=True, on_delete=models.SET_NULL, help_text="If this is a single event sponsor then use this. Conflicts with starts and ends.")
+
+    def __str__(self):
+        return "{self.sponsor.name} {self.starts} {self.ends} {self.gamecraft}".format(self=self)

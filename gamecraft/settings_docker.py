@@ -24,10 +24,22 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.handlers.TimedRotatingFileHandler',
             'filename': '/gamecraft/logs/request.log',
+            "formatter": "request_formatter",
             'utc': True,
         },
     },
+    'formatters': {
+        "request_formatter": {
+            "datefmt": '%Y-%m-%dT%H:%M:%S%z',
+            "format": "%(asctime)s %(levelname)s %(process)d:%(thread)d %(filename)s:%(lineno)d:%(funcName)s %(message)s",
+        }
+    },
     'loggers': {
+        '': {
+            'handlers': ['request_handler'],
+            'level': 'INFO',
+            'propagate': True,
+        },
         'django.request': {
             'handlers': ['request_handler'],
             'level': 'DEBUG',
@@ -37,6 +49,7 @@ LOGGING = {
 }
 
 MEDIA_ROOT = "/gamecraft/uploads"
+MEDIA_URL = "/media/"
 
 STATIC_ROOT = "/gamecraft/static"
 

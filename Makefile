@@ -9,7 +9,7 @@ DOCKER_RUN=docker run --rm $(MOUNTS) $(LINKS)
 DOCKER_RUN_INTERACTIVE=$(DOCKER_RUN) -i -t
 DOCKER_RUN_DJANGO_ADMIN=$(DOCKER_RUN_INTERACTIVE) --entrypoint=/usr/local/bin/django-admin
 DOCKER_RUN_BASH=$(DOCKER_RUN_INTERACTIVE) --entrypoint=/bin/bash
-TAG=micktwomey/gamecraft:0.0.8
+TAG=micktwomey/gamecraft:latest
 
 all:
 
@@ -18,6 +18,9 @@ build:
 
 migrate:
 	$(DOCKER_RUN_DJANGO_ADMIN) $(TAG) migrate
+
+makemigrations:
+	$(DOCKER_RUN_DJANGO_ADMIN) $(TAG) makemigrations
 
 runserver:
 	$(DOCKER_RUN_DJANGO_ADMIN) --name gamecraft -p 8000:8000 $(TAG) runserver 0.0.0.0:8000

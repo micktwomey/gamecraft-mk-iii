@@ -22,6 +22,7 @@ class GameCraftModelTestCase(TestCase):
             public=True,
         )
         self.future_gamecraft.save()
+        return self.future_gamecraft
 
     def add_started_gamecraft(self):
         self.started_gamecraft = models.GameCraft(
@@ -32,6 +33,7 @@ class GameCraftModelTestCase(TestCase):
             public=True,
         )
         self.started_gamecraft.save()
+        return self.started_gamecraft
 
     def test_get_upcoming_gamecrafts(self):
         self.add_started_gamecraft()
@@ -60,3 +62,21 @@ class GameCraftModelTestCase(TestCase):
         self.assertFalse(gc.started())
         self.assertTrue(gc.finished())
         self.assertFalse(gc.upcoming())
+
+    def test_show_theme(self):
+
+        gc = models.GameCraft.objects.get(slug="dublin-gamecraft-1")
+        self.assertNotEqual(gc.theme, "")
+        self.assertTrue(gc.show_theme())
+
+        self.add_started_gamecraft()
+        self.assertEqual(self.started_gamecraft.theme, "")
+        self.assertFalse(self.started_gamecraft.show_theme())
+        self.started_gamecraft.theme = "A theme!"
+        self.assertTrue(self.started_gamecraft.show_theme())
+
+        self.add_future_gamecraft()
+        self.assertEqual(self.future_gamecraft.theme, "")
+        self.assertFalse(self.future_gamecraft.show_theme())
+        self.future_gamecraft.theme = "A theme!"
+        self.assertFalse(self.future_gamecraft.show_theme())
