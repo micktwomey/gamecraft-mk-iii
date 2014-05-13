@@ -1,4 +1,5 @@
 import datetime
+import logging
 import uuid
 
 from django.contrib.auth.decorators import permission_required
@@ -11,7 +12,12 @@ from django.shortcuts import (
 )
 import django.utils.timezone
 
-from gamecraft.gamecrafts.models import GameCraft
+from gamecraft.gamecrafts.models import (
+    GameCraft,
+    get_sponsorships_for_gamecraft,
+)
+
+LOG = logging.getLogger(__name__)
 
 
 def list_gamecrafts(request):
@@ -55,7 +61,14 @@ def edit_gamecraft(request, slug):
 
 def view_gamecraft(request, slug):
     gc = get_object_or_404(GameCraft.objects, slug=slug)
-    return render(request, "gamecraft/view_gamecraft.html", {"gamecraft": gc})
+    LOG.debug("Got GameCraft {}".format(gc))
+    sponsorships = get_sponsorships_for_gamecraft(gc)
+    LOG.debug("Got sponsorships {} for gamecraft {}".format(sponsorships, gc))
+    return render(request, "gamecraft/view_gamecraft.html", {
+        "gamecraft": gc,
+        "global_sponsorships": sponsorships["global"],
+        "gamecraft_sponsorships": sponsorships["gamecraft"],
+    })
 
 
 def view_background(request, slug):

@@ -67,6 +67,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.twitter',
     'debug_toolbar',
     'django.contrib.admindocs',
+    'imagekit',
 )
 
 MIDDLEWARE_CLASSES = (

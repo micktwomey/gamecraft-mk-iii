@@ -1,0 +1,8 @@
+<div class="sponsor_banner">
+  {% for sponsorship in global_sponsorships %}
+  <a href="{{sponsorship.sponsor.url}}"><img src="{{sponsorship.sponsor.logo_thumbnail_medium.url}}" alt="{{sponsorship.sponsor.name}}"></a>
+  {% endfor %}
+  {% for sponsorship in gamecraft_sponsorships %}
+  <a href="{{sponsorship.sponsor.url}}"><img src="{{sponsorship.sponsor.logo_thumbnail_medium.url}}" alt="{{sponsorship.sponsor.name}}"></a>
+  {% endfor %}
+</div>

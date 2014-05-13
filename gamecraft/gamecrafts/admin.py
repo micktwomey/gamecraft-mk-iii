@@ -2,6 +2,8 @@ import logging
 
 from django.contrib import admin
 
+from imagekit.admin import AdminThumbnail
+
 from gamecraft.gamecrafts.models import (
     GameCraft,
     Sponsor,
@@ -25,8 +27,9 @@ admin.site.register(GameCraft, GameCraftAdmin)
 class SponsorAdmin(admin.ModelAdmin):
     exclude = []
     prepopulated_fields = {"slug": ("name",)}
-    list_display = ("slug", "name", "created", "modified")
+    list_display = ("slug", "admin_thumbnail", "name", "created", "modified")
     search_fiels = ("slug", "name", "url")
+    admin_thumbnail = AdminThumbnail(image_field='logo_thumbnail_small')
 
     def save_model(self, request, obj, form, change):
         update_image_from_url(obj, "logo_url", "logo")

@@ -27,11 +27,11 @@
       </div>
     </div>
   </div>
-  {# {% if gamecraft.show_signup %} #}
-  {# <div class="footer"> #}
-    {# <p><a href="#" class="btn btn-success btn-lg" role="button">Sign Up!</a></p> #}
-  {# </div> #}
-  {# {% endif %} #}
+  {% if global_sponsorships or gamecraft_sponsorships %}
+  <div class="footer">
+    {% include "gamecraft/sponsor_banner.html" %}
+  </div>
+  {% endif %}
 </div>
 
 {% if gamecraft.show_theme %}

@@ -6,11 +6,15 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils import timezone
 
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFit
+
 import pytz
 
 import requests
 
 LOG = logging.getLogger(__name__)
+MODIFY_GAMECRAFT_PERMISSION = ("modify_gamecraft", "Can create, edit and delete a GameCraft")
 
 
 class PublishedManager(models.Manager):
@@ -55,11 +59,11 @@ class GameCraft(models.Model):
     published = PublishedManager()
 
     def __str__(self):
-        return "{self.title} {self.starts}".format(self=self)
+        return "{self.title} - {self.starts:%Y-%m-%d}".format(self=self)
 
     class Meta:
         permissions = (
-            ("modify_gamecraft", "Can create, edit and delete a GameCraft"),
+            MODIFY_GAMECRAFT_PERMISSION,
         )
         verbose_name = "GameCraft"
         ordering = ['-starts']
@@ -150,9 +154,17 @@ class Sponsor(models.Model):
 
     logo_url = models.URLField(max_length=500, blank=True, null=True, help_text="URL to download logo from instead of direct upload.")
     logo = models.ImageField(blank=True, null=True, help_text="The image used for the sponsor logo", upload_to="gamecraft/sponsors/%Y/%m/%d")
+    logo_thumbnail_medium = ImageSpecField(source='logo', processors=[ResizeToFit(300, 50)], format='PNG')
+    logo_thumbnail_small = ImageSpecField(source='logo', processors=[ResizeToFit(100, 20)], format='PNG')
 
     def __str__(self):
-        return "{self.slug} {self.name}".format(self=self)
+        return self.name
+
+    class Meta:
+        permissions = (
+            MODIFY_GAMECRAFT_PERMISSION,
+        )
+        ordering = ["name", "modified"]
 
 
 def update_image_from_url(instance, url_attr, image_attr, save=False):
@@ -176,11 +188,11 @@ def update_image_from_url(instance, url_attr, image_attr, save=False):
 
 
 SPONSORSHIP_LEVELS = (
-    # GOTO 10
     (10, "Platinum"),
     (20, "Gold"),
     (30, "Silver"),
     (40, "Indies"),
+    # GOTO 10
 )
 
 
@@ -197,8 +209,8 @@ class Sponsorship(models.Model):
 
     description = models.TextField(blank=True, help_text="Optional blurb about this sponsorship (Markdown). Most likely won't get used yet :)")
 
-    starts = models.DateTimeField(help_text="The time the sponsorship starts.")
-    ends = models.DateTimeField(help_text="The time the sponsorship ends.")
+    starts = models.DateTimeField(blank=True, null=True, help_text="The time the sponsorship starts.")
+    ends = models.DateTimeField(blank=True, null=True, help_text="The time the sponsorship ends.")
 
     # Generates a get_level_display()
     level = models.IntegerField(blank=True, null=True, choices=SPONSORSHIP_LEVELS, help_text="Sponsorship level (if applicable)")
@@ -207,3 +219,32 @@ class Sponsorship(models.Model):
 
     def __str__(self):
         return "{self.sponsor.name} {self.starts} {self.ends} {self.gamecraft}".format(self=self)
+
+    class Meta:
+        permissions = (
+            MODIFY_GAMECRAFT_PERMISSION,
+        )
+        ordering = ['level', "-starts", "modified"]
+
+
+def get_sponsorships_for_gamecraft(gamecraft):
+    """Returns a dict of global and event sponsorships
+
+    """
+    return {
+        "gamecraft": list(gamecraft.sponsorship_set.all()),
+        "global": list(Sponsorship.objects.filter(
+            starts__lte=gamecraft.ends,
+            ends__gte=gamecraft.starts,
+        ).all()),
+    }
+
+
+def get_global_sponsorships():
+    now = timezone.now()
+    return list(
+        Sponsorship.objects.filter(
+            starts__lte=now,
+            ends__gte=now,
+        ).all()
+    )
