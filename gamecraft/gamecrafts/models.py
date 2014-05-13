@@ -175,6 +175,15 @@ def update_image_from_url(instance, url_attr, image_attr, save=False):
             image.save(filename, django.core.files.base.ContentFile(response.content), save=save)
 
 
+SPONSORSHIP_LEVELS = (
+    # GOTO 10
+    (10, "Platinum"),
+    (20, "Gold"),
+    (30, "Silver"),
+    (40, "Indies"),
+)
+
+
 class Sponsorship(models.Model):
     """A sponsorship (by a sponsor)
 
@@ -190,6 +199,9 @@ class Sponsorship(models.Model):
 
     starts = models.DateTimeField(help_text="The time the sponsorship starts.")
     ends = models.DateTimeField(help_text="The time the sponsorship ends.")
+
+    # Generates a get_level_display()
+    level = models.IntegerField(blank=True, null=True, choices=SPONSORSHIP_LEVELS, help_text="Sponsorship level (if applicable)")
 
     gamecraft = models.ForeignKey(GameCraft, blank=True, null=True, on_delete=models.SET_NULL, help_text="If this is a single event sponsor then use this. Conflicts with starts and ends.")
 
