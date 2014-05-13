@@ -8,6 +8,7 @@ from django.views.generic.base import TemplateView
 
 urlpatterns = patterns('',
     url(r'^$', 'gamecraft.views.frontpage', name='frontpage'),
+    url(r"^codeofconduct/$", 'gamecraft.views.codeofconduct', name='codeofconduct'),
     url(r'^events/', include('gamecraft.gamecrafts.urls')),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),

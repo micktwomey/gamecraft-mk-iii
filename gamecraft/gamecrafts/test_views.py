@@ -5,6 +5,7 @@ class SmokeTestEmptyDB(TestCase):
     def test_empty_views(self):
         for path, status in (
             ("/", 200),
+            ("/codeofconduct/", 200),
             ("/events/fake-gamecraft/", 404),
             ("/events/", 200),
         ):
@@ -18,6 +19,7 @@ class SmokeTestViews(TestCase):
     def test_views(self):
         for path, status in (
             ("/", 200),
+            ("/codeofconduct/", 200),
             ("/events/dublin-gamecraft-1/", 200),
             ("/events/dublin-gamecraft-ii/", 200),
             ("/events/fake-gamecraft/", 404),
