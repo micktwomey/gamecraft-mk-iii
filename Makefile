@@ -61,5 +61,5 @@ loaddata:
 	$(DOCKER_RUN_DJANGO_ADMIN) $(TAG) loaddata /gamecraft/backups/site_data.json
 	$(DOCKER_RUN_DJANGO_ADMIN) $(TAG) loaddata /gamecraft/backups/gamecrafts.json
 
-update_fixtures: dumpdata
+update_fixtures:
 	cp $(CURDIR)/backups/gamecrafts.json $(CURDIR)/gamecraft/gamecrafts/fixtures/gamecrafts.json

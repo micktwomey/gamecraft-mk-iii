@@ -1,5 +1,7 @@
 from django.test import TestCase
 
+from gamecraft.gamecrafts.models import GameCraft
+
 
 class SmokeTestEmptyDB(TestCase):
     def test_empty_views(self):
@@ -27,3 +29,9 @@ class SmokeTestViews(TestCase):
         ):
             resp = self.client.get(path)
             self.assertEqual(resp.status_code, status)
+
+    def test_existing_gamecrafts(self):
+        for gc in GameCraft.objects.all():
+            resp = self.client.get("/events/{}/".format(gc.slug))
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn(gc.title, resp.content.decode("UTF-8"))
