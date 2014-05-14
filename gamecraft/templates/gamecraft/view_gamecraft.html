@@ -27,18 +27,24 @@
       </div>
     </div>
   </div>
-  {% if global_sponsorships or gamecraft_sponsorships %}
-  <div class="footer">
-    {% include "gamecraft/sponsor_banner.html" %}
-  </div>
-  {% endif %}
 </div>
+
+{% if global_sponsorships or gamecraft_sponsorships %}
+<section class="sponsors">
+  <div class="container">
+  <h1><span class="glyphicon glyphicon-heart-empty"> Sponsors</h1>
+  {% include "gamecraft/sponsor_banner.html" %}
+  </div>
+</section>
+{% endif %}
 
 {% if gamecraft.show_theme %}
 <section class="theme">
   <div class="container">
-    <h1><span class="glyphicon glyphicon-heart-empty"></span> Theme</h1>
-    {{gamecraft.theme|markdown}}
+    <h1><span class="glyphicon glyphicon-tower"> Theme</h1>
+    <div class="center-block">
+      {{gamecraft.theme|markdown}}
+    </div>
   </div>
 </section>
 {% endif %}

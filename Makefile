@@ -4,7 +4,7 @@ MOUNTS=-v $(MOUNT_PREFIX):/gamecraft/src/development:rw \
 	-v $(MOUNT_PREFIX)/uploads:/gamecraft/uploads:rw \
 	-v $(MOUNT_PREFIX)/backups:/gamecraft/backups:rw \
 	-v $(MOUNT_PREFIX)/config:/gamecraft/config:rw
-LINKS=--link postgresql:postgresql
+LINKS=--link postgresql:postgresql --link memcached:memcached
 DOCKER_RUN=docker run --rm $(MOUNTS) $(LINKS)
 DOCKER_RUN_INTERACTIVE=$(DOCKER_RUN) -i -t
 DOCKER_RUN_DJANGO_ADMIN=$(DOCKER_RUN_INTERACTIVE) --entrypoint=/usr/local/bin/django-admin
@@ -33,6 +33,13 @@ shell:
 
 test:
 	$(DOCKER_RUN_DJANGO_ADMIN) $(TAG) test gamecraft.gamecrafts
+
+startcache:
+	docker pull micktwomey/memcached:latest
+	docker start memcached || docker run --name memcached -d micktwomey/memcached
+
+stopcache:
+	docker stop memcached
 
 startdb:
 	docker pull micktwomey/postgresql:latest

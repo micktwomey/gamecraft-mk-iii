@@ -1,8 +1,23 @@
-<div class="sponsor_banner">
-  {% for sponsorship in global_sponsorships %}
-  <a href="{{sponsorship.sponsor.url}}"><img src="{{sponsorship.sponsor.logo_thumbnail_medium.url}}" alt="{{sponsorship.sponsor.name}}"></a>
-  {% endfor %}
-  {% for sponsorship in gamecraft_sponsorships %}
-  <a href="{{sponsorship.sponsor.url}}"><img src="{{sponsorship.sponsor.logo_thumbnail_medium.url}}" alt="{{sponsorship.sponsor.name}}"></a>
-  {% endfor %}
+<div class="sponsor_banner row">
+  {% if global_sponsorships %}
+  <div class="global col-md-8">
+    {% for sponsorship in global_sponsorships %}
+    <div class="col-xs-10 col-md-6">
+      <a href="{{sponsorship.sponsor.url}}" class="thumbnail"><img src="{{sponsorship.sponsor.logo_thumbnail_medium.url}}" alt="{{sponsorship.sponsor.name}}"></a>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if gamecraft_sponsorships %}
+  <div class="gamecraft col-md-4">
+    <div class="row">
+      {% for sponsorship in gamecraft_sponsorships %}
+      <div class="col-xs-10 col-md-6">
+        <a href="{{sponsorship.sponsor.url}}" class="thumbnail"><img src="{{sponsorship.sponsor.logo_thumbnail_medium.url}}" alt="{{sponsorship.sponsor.name}}"></a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
 </div>
