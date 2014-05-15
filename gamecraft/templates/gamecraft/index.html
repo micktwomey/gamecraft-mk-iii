@@ -45,9 +45,6 @@
           <div class="title">
             <h1>{{gamecraft.title}}</h1>
             <h2>{{gamecraft.location}}</h2>
-            {% timezone gamecraft.timezone %}
-            <h3>{{gamecraft.starts | date:"l, F n, P T"}}</h3>
-            {% endtimezone %}
           </div>
         </a>
       </div>
@@ -63,7 +60,7 @@
             <h1>{{gamecraft.title}}</h1>
             <h2>{{gamecraft.location}}</h2>
             {% timezone gamecraft.timezone %}
-            <h3>{{gamecraft.starts | date:"l, F n, P T"}}</h3>
+            <h3>{{gamecraft.starts | date:"l, F j, P T"}}</h3>
             {% endtimezone %}
           </div>
         </a>

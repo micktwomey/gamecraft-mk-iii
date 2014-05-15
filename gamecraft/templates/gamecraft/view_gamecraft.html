@@ -22,7 +22,7 @@
         <h1>{{gamecraft.title}}</h1>
         <h2>{{gamecraft.location}}</h2>
         {% timezone gamecraft.timezone %}
-        <h3>{{gamecraft.starts | date:"l, F n, P"}} to {{gamecraft.ends | date:"P T"}}</h3>
+        <h3>{{gamecraft.starts | date:"l, F j, P"}} to {{gamecraft.ends | date:"P T"}}</h3>
         {% endtimezone %}
       </div>
     </div>
