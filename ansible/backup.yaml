@@ -25,5 +25,5 @@
 
   - name: rsync backups locally
     synchronize: >
-      mode=pull src=/gamecraft/backups/ dest=../../backups/
+      mode=pull src=/gamecraft/backups/ dest=~/Projects/gamecraft-mk-iii/backups/
       delegate_to: delegate.host
