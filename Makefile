@@ -32,7 +32,7 @@ shell:
 	$(DOCKER_RUN_BASH) $(TAG) -i
 
 test:
-	$(DOCKER_RUN_DJANGO_ADMIN) $(TAG) test gamecraft.gamecrafts
+	$(DOCKER_RUN_DJANGO_ADMIN) $(TAG) test --settings=gamecraft.settings_docker_base gamecraft.gamecrafts
 
 startcache:
 	docker pull micktwomey/memcached:latest

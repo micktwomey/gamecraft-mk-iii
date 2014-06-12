@@ -1,0 +1,26 @@
+{% extends "gamecraft/base_gamecraft.html" %}
+
+{% load markdown %}
+{% load static %}
+{% load tz %}
+
+{% block title %}
+  GameCraft News
+{% endblock title %}
+
+{% block body_class %}news{% endblock %}
+
+{% block content %}
+<div class="container">
+    <section>
+      <h1>GameCraft News</h1>
+      <div>
+        <ul>
+        {% for news in all_news %}
+            <li><a href="{% url 'view_news' news.published.year news.published.month news.published.day news.slug %}">{{news.title}}</a></li>
+        {% endfor %}
+        </ul>
+      </div>
+    </section>
+</div>
+{% endblock %}

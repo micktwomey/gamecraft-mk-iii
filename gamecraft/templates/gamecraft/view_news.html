@@ -1,0 +1,22 @@
+{% extends "gamecraft/base_gamecraft.html" %}
+
+{% load markdown %}
+{% load static %}
+{% load tz %}
+
+{% block title %}
+  {{news.title}}
+{% endblock title %}
+
+{% block body_class %}news{% endblock %}
+
+{% block content %}
+<div class="container">
+  <section>
+    <h1>{{news.title}}</h1>
+    <div>
+    {{news.content | markdown}}
+    </div>
+  </section>
+</div>
+{% endblock %}

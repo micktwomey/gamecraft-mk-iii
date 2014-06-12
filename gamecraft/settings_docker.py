@@ -2,7 +2,7 @@ import os
 
 import yaml
 
-from gamecraft.settings import *
+from gamecraft.settings_docker_base import *
 
 DATABASES = {
     'default': {

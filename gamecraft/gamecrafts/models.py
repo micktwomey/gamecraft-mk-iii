@@ -256,8 +256,8 @@ class PublishedNewsManager(models.Manager):
     """
     def get_queryset(self):
         now = timezone.now()
-        LOG.debug("Filtering with public=True and published >= {}".format(now))
-        return super(models.Manager, self).get_queryset().filter(public=True).filter(published__gte=now)
+        LOG.debug("Filtering with public=True and published <= {}".format(now))
+        return super(models.Manager, self).get_queryset().filter(public=True).filter(published__lte=now)
 
 
 class News(models.Model):
@@ -268,11 +268,11 @@ class News(models.Model):
     """
     created = models.DateTimeField(auto_now_add=True, help_text="When this was created.")
     modified = models.DateTimeField(auto_now=True, help_text="When this was last modified.")
-    published = models.DateTimeField(help_text="When to publish this (this can be in the future). Note that you'll need to tick the public flag too.")
+    published = models.DateTimeField(help_text="When to publish this (this can be in the future). Note that you'll need to tick the public flag too. This also controls the URL.")
 
     gamecraft = models.ForeignKey(GameCraft, blank=True, null=True, on_delete=models.SET_NULL, help_text="If this relates to a particular gamecraft use this.")
 
-    slug = models.SlugField(max_length=600, help_text="Short name in url, hopefully automatically populated :) e.g. 2014-04-03-london-gamecraft-2014")
+    slug = models.SlugField(max_length=600, help_text="Short name in url, hopefully automatically populated :) e.g. news-post")
     title = models.CharField(max_length=500, unique=True, help_text="Title of news post")
 
     content = models.TextField(blank=True, help_text="The news article, in Markdown.")
@@ -294,4 +294,28 @@ class News(models.Model):
         unique_together = ["published", "slug"]
 
     def get_absolute_url(self):
-        return reverse('view_news', kwargs={"slug": self.slug, "published": self.published})
+        return reverse('view_news', kwargs={"slug": self.slug, "year": self.published.year, "month": self.published.month, "day": self.published.day})
+
+
+class NewsNotFound(Exception):
+    """Raised when news isn't found
+
+    Typically you want to raise a django.http.Http404 at this point.
+
+    """
+
+
+def get_news(year, month, day, slug, public_only=False):
+    """Retrieves a News object
+
+    The combination of date + slug should be unique enough, otherwise an NewsNotFound exception is raised.
+
+    """
+    try:
+        # Use midnight of the day after the date's day, to include all
+        # times in that day and before.
+        when = datetime.datetime(year, month, day, tzinfo=pytz.UTC) + datetime.timedelta(days=1)
+        manager = News.published_objects if public_only else News.objects
+        return manager.filter(published__lte=when).get(slug=slug)
+    except (News.MultipleObjectsReturned, News.DoesNotExist) as e:
+        raise NewsNotFound(e)
