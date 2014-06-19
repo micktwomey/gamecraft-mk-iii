@@ -23,7 +23,7 @@ makemigrations:
 	$(DOCKER_RUN_DJANGO_ADMIN) $(TAG) makemigrations
 
 runserver:
-	$(DOCKER_RUN_DJANGO_ADMIN) --name gamecraft -p 8000:8000 $(TAG) runserver 0.0.0.0:8000
+	$(DOCKER_RUN_DJANGO_ADMIN) --name gamecraft -p 8000:8000 $(TAG) runserver --settings=gamecraft.settings_docker_dev 0.0.0.0:8000
 
 uwsgi:
 	$(DOCKER_RUN_INTERACTIVE) --name gamecraft -p 8000:8000 $(TAG)
