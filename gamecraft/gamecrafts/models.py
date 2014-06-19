@@ -121,6 +121,9 @@ class GameCraft(models.Model):
         """
         return self.upcoming()
 
+    def published_news(self):
+        return self.news.filter(public=True).filter(published__lte=timezone.now())
+
 
 def get_upcoming_gamecrafts():
     """Returns a dict of all published upcoming gamecrafts (or current)
@@ -270,7 +273,7 @@ class News(models.Model):
     modified = models.DateTimeField(auto_now=True, help_text="When this was last modified.")
     published = models.DateTimeField(help_text="When to publish this (this can be in the future). Note that you'll need to tick the public flag too. This also controls the URL.")
 
-    gamecraft = models.ForeignKey(GameCraft, blank=True, null=True, on_delete=models.SET_NULL, help_text="If this relates to a particular gamecraft use this.")
+    gamecraft = models.ForeignKey(GameCraft, blank=True, null=True, related_name="news", on_delete=models.SET_NULL, help_text="If this relates to a particular gamecraft use this.")
 
     slug = models.SlugField(max_length=600, help_text="Short name in url, hopefully automatically populated :) e.g. news-post")
     title = models.CharField(max_length=500, unique=True, help_text="Title of news post")

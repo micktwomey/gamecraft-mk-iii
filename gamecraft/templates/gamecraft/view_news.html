@@ -13,9 +13,20 @@
 {% block content %}
 <div class="container">
   <section>
-    <h1>{{news.title}}</h1>
-    <div>
-    {{news.content | markdown}}
+    <h1><span class="glyphicon glyphicon-globe"></span> {{news.title}} <small>{{news.published | date:"l N jS Y" }}</small></h1>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div>
+            {{news.content | markdown}}
+        </div>
+      </div>
+      {% if news.gamecraft %}
+        <div class="panel-footer">
+          {% if news.gamecraft %}
+          <p><span class="glyphicon glyphicon-tower"></span> Read more about <a href="{% url 'view_gamecraft' news.gamecraft.slug %}">{{news.gamecraft.title}}</a></p>
+          {% endif %}
+        </div>
+      {% endif %}
     </div>
   </section>
 </div>

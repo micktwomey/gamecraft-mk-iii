@@ -32,7 +32,7 @@
 {% if global_sponsorships or gamecraft_sponsorships %}
 <section class="sponsors">
   <div class="container">
-  <h1><span class="glyphicon glyphicon-heart-empty"> Sponsors</h1>
+  <h1><span class="glyphicon glyphicon-heart-empty"></span> Sponsors</h1>
   {% include "gamecraft/sponsor_banner.html" %}
   </div>
 </section>
@@ -41,7 +41,7 @@
 {% if gamecraft.show_theme %}
 <section class="theme">
   <div class="container">
-    <h1><span class="glyphicon glyphicon-tower"> Theme</h1>
+    <h1><span class="glyphicon glyphicon-tower"></span> Theme</h1>
     <div class="center-block">
       {{gamecraft.theme|markdown}}
     </div>
@@ -64,9 +64,27 @@
 </section>
 {% endif %}
 
+{% if gamecraft.published_news %}
+<section class="news">
+  <div class="container">
+    <h1><span class="glyphicon glyphicon-globe"></span> News</h1>
+    {% for news in gamecraft.published_news %}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><a href="{% url 'view_news' news.published.year news.published.month news.published.day news.slug %}">{{news.title}}</a> <small>{{news.published | date:"l N jS" }}</small></h3>
+        </div>
+        <div class="panel-body">
+          <p>{{news.content|markdown}}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
 <section class="map">
 <div class="container">
-  <h1><span class="glyphicon glyphicon-globe"></span> Where</h1>
+  <h1><span class="glyphicon glyphicon-map-marker"></span> Where</h1>
   <h2>{{gamecraft.location}}</h2>
 </div>
 {% if gamecraft.location_latitude %}

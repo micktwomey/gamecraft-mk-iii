@@ -13,13 +13,30 @@
 {% block content %}
 <div class="container">
     <section>
-      <h1>GameCraft News</h1>
+      <h1><span class="glyphicon glyphicon-globe"></span> GameCraft News</h1>
       <div>
-        <ul>
-        {% for news in all_news %}
-            <li><a href="{% url 'view_news' news.published.year news.published.month news.published.day news.slug %}">{{news.title}}</a></li>
+        {% regroup all_news by published.year as news_by_year%}
+        {% for year in news_by_year %}
+        <div>
+          <h2>{{year.grouper}}</h2>
+          {% for news in year.list %}
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title"><a href="{% url 'view_news' news.published.year news.published.month news.published.day news.slug %}">{{news.title}}</a> <small>{{news.published | date:"l N jS" }}</small></h3>
+              </div>
+              <div class="panel-body">
+                <p>{{news.content|truncatewords_html:10}}</p>
+              </div>
+              <div class="panel-footer">
+                <p><a href="{% url 'view_news' news.published.year news.published.month news.published.day news.slug %}">Read more.</a></p>
+                {% if news.gamecraft %}
+                <p><span class="glyphicon glyphicon-tower"></span> Read more about <a href="{% url 'view_gamecraft' news.gamecraft.slug %}">{{news.gamecraft.title}}</a></p>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
         {% endfor %}
-        </ul>
       </div>
     </section>
 </div>
