@@ -26,6 +26,10 @@
     - gamecraft
     - docker
 
+- name: Run migrations
+  command: >
+    docker run --rm -i -t --link postgresql:postgresql --entrypoint=/usr/local/bin/django-admin {{gamecraft_image}} migrate
+
 - name: Check for old GameCraft versions
   shell: >
     docker inspect gamecraft 2>/dev/null | jq --raw-output '.[0].Config.Image // "{{gamecraft_image}}"'
