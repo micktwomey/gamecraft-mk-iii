@@ -20,6 +20,7 @@ python3-memcached==1.51
 python3-openid==3.0.4
 pytz==2014.4
 PyYAML==3.11
+raven==5.0.0
 requests-oauthlib==0.4.1
 requests==2.3.0
 simplejson==3.5.3
