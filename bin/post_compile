@@ -18,6 +18,6 @@ npm install -g yuglify@0.1.4
 npm install -g uglify-js@2.4.14
 fi
 
-python app/manage.py migrate --noinput
+# python manage.py migrate --noinput
 
 echo "-----> Post-compile done"
