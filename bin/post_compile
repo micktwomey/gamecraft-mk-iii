@@ -7,9 +7,8 @@ set -eo pipefail
 
 echo "-----> Running post-compile hook"
 
-echo "-----> Running install_nodejs"
-chmod +x bin/install_nodejs
-bin/install_node
+echo "-----> Running install_node"
+bash bin/install_node
 
 npm install -g less@1.7.3
 npm install -g yuglify@0.1.4
