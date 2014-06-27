@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -veo pipefail
+set -eo pipefail
 
 # From https://github.com/jiaaro/heroku-buildpack-django
 
@@ -7,16 +7,13 @@ set -veo pipefail
 
 echo "-----> Running post-compile hook"
 
-if [ -f bin/install_nodejs ]; then
 echo "-----> Running install_nodejs"
 chmod +x bin/install_nodejs
-bin/install_nodejs
+bin/install_node
 
-# PUT YOUR NPM INSTALL LINES HERE: (less and iced-coffee-script for example)
 npm install -g less@1.7.3
 npm install -g yuglify@0.1.4
 npm install -g uglify-js@2.4.14
-fi
 
 # python manage.py migrate --noinput
 
