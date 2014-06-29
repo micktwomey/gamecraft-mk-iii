@@ -293,7 +293,7 @@ class News(models.Model):
             MODIFY_GAMECRAFT_PERMISSION,
         )
         verbose_name_plural = "news"
-        ordering = ["published", "slug", "title", "modified", "created"]
+        ordering = ["-published", "slug", "title", "-modified", "-created"]
         unique_together = ["published", "slug"]
 
     def get_absolute_url(self):
