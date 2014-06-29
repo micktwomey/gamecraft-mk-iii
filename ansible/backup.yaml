@@ -20,6 +20,10 @@
     command: >
       docker run --rm -i -t --link postgresql:postgresql -v /gamecraft/backups:/gamecraft/backups --entrypoint=/bin/bash {{gamecraft_image}} -c "django-admin dumpdata --indent=2 --format=json --natural-foreign --natural-primary auth.user sites.site socialaccount > /gamecraft/backups/site_data.json"
 
+  - name: psql dump data
+    command: >
+      docker run --rm -i -t --link postgresql:postgresql -v /gamecraft/backups:/gamecraft/backups --entrypoint=/bin/bash -u root -e PGPASSWORD=docker micktwomey/postgresql:latest -c "pg_dump -Fc --no-acl --no-owner -h postgresql -U docker gamecraft > /gamecraft/backups/gamecraft.dump"
+
   - name: Tar uploads
     command: tar -C /gamecraft -zcf /gamecraft/backups/uploads.tar.gz uploads
 
