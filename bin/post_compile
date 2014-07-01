@@ -16,6 +16,8 @@ npm install -g uglify-js@2.4.14
 
 echo "-----> Collecting django static files again"
 python manage.py collectstatic --noinput
-# python manage.py migrate --noinput
+
+echo "-----> Running migrations"
+python manage.py migrate --noinput
 
 echo "-----> Post-compile done"
