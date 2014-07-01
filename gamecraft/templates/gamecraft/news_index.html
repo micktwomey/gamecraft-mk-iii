@@ -25,7 +25,7 @@
                 <h3 class="panel-title"><a href="{% url 'view_news' news.published.year news.published.month news.published.day news.slug %}">{{news.title}}</a> <small>{{news.published | date:"l N jS" }}</small></h3>
               </div>
               <div class="panel-body">
-                <p>{{news.content|truncatewords_html:10}}</p>
+                <p>{{news.content | markdown | truncatewords_html:20}}</p>
               </div>
               <div class="panel-footer">
                 <p><a href="{% url 'view_news' news.published.year news.published.month news.published.day news.slug %}">Read more.</a></p>
