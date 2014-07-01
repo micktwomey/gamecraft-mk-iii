@@ -24,19 +24,15 @@ echo grub-pc grub2/linux_cmdline_default select quiet | /usr/bin/debconf-set-sel
 apt-get update
 apt-get upgrade -q -y
 apt-get install -q -y \
-  build-essential \
-  dkms \
   htop \
-  linux-headers-generic \
-  linux-image-extra-$(uname -r) \
   lxc-docker
 
 apt-get -q -y clean
 apt-get -q -y autoremove
 
 # Listen on TCP for docker
-# This effectively apes boot2docker, now you can set DOCKER_HOST=tcp://localhost:4243 and get docker :)
-sed --in-place=.bak --regexp-extended 's;^#?DOCKER_OPTS=.*;DOCKER_OPTS="-H unix:// -H tcp://0.0.0.0:4243";' /etc/default/docker
+# This effectively apes boot2docker, now you can set DOCKER_HOST=tcp://localhost:2375 and get docker :)
+sed --in-place=.bak --regexp-extended 's;^#?DOCKER_OPTS=.*;DOCKER_OPTS="-H unix:// -H tcp://0.0.0.0:2375";' /etc/default/docker
 service docker restart
 
 echo I finished provisioning at $(date)
@@ -44,27 +40,18 @@ echo I finished provisioning at $(date)
 SCRIPT
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "chef/ubuntu-13.10"
+  config.vm.box = "chef/ubuntu-14.04"
 
   config.vm.provision "shell", inline: $script
 
   config.vm.define :gamecraft do |gamecraft|
     gamecraft.vm.hostname = "gamecraft.vagrant"
-    gamecraft.vm.network "forwarded_port", guest: 4243, host: 4243
-    gamecraft.vm.network "forwarded_port", guest: 6081, host: 6081
-    gamecraft.vm.network "forwarded_port", guest: 8000, host: 8000
     gamecraft.vm.network "private_network", ip: "192.168.33.80"
     gamecraft.vm.provider "virtualbox" do |vb|
       vb.customize ["modifyvm", :id, "--memory", "384"]
     end
+    gamecraft.vm.provider "vmware_fusion" do |v|
+      v.vmx["memsize"] = "384"
+    end
   end
-
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
-  # config.vm.network "public_network"
-
-  # If true, then any SSH connections made will enable agent forwarding.
-  # Default value: false
-  # config.ssh.forward_agent = true
 end
