@@ -6,16 +6,22 @@ Why not flask? Less plugins and seems to have stalled somewhat.
 
 ## Hosting
 
-The plan is to run as docker images on a super cheat (tm) Digital Ocean VM. With luck and smart caching we can run for $5 a month! Throw in another server and we can have redundancy for $10 a month :)
+Free hosting with heroku, sooo much easier. If we need to scale up we can move to Digital Ocean, but that introduces deployment fu.
 
 ## Development
 
-The other reason to use Docker is it makes it easier to get going with a Vagrant VM which more closely apes the real site.
+1. Get a Heroku account
+2. Ask mick to get added to the gamecraft app
+3. Install the heroku toolbox
+4. heroku login
+5. git remote add heroku git@heroku.com:gamecraft-it-eu.git
+6. heroku fork gamecraft-it-yourname (e.g. gamecraft-it-micktwomey)
+7. profit
 
-In theory (tm) you can:
+Ok, you can also create a virtualenv and pip install -r requirements.txt, but that's no fun.
 
-1. vagrant up
-2. make (does a docker build)
-3. make runserver (docker run gamecraft)
+## Deployment
 
-All you need is vagrant and a VM provider (virtualbox, vmware or hyperv on windows).
+1. git commit
+2. git push heroku master
+
