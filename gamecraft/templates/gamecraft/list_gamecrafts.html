@@ -8,6 +8,10 @@
   Ghosts of GameCraft Past and Future
 {% endblock title %}
 
+{% block head %}
+<link rel="alternate" type="application/rss+xml" title="GameCraft Events RSS Feed" href="{% url 'gamecraft_rss' %}">
+{% endblock %}
+
 {% block body_class %}gamecrafts{% endblock %}
 
 {% block content %}
