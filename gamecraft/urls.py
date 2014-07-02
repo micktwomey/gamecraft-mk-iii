@@ -24,3 +24,7 @@ if settings.DEBUG:
             'document_root': settings.MEDIA_ROOT,
         }),
     )
+else:
+    urlpatterns += patterns('',
+        url(r'^media/(?P<path>.*)$', 'gamecraft.views.get_media'),
+    )

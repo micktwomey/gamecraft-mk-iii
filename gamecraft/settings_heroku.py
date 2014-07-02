@@ -1,7 +1,10 @@
+import mimetypes
 import os
 import urllib.parse
 
 import dj_database_url
+
+import mongoengine
 
 from gamecraft.settings import *
 
@@ -48,3 +51,11 @@ CACHES = {
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 SESSION_CACHE_ALIAS = 'default'
+
+# Set up the mongo connection
+mongoengine.connect("gamecraft", host=os.environ["MONGOSOUP_URL"])
+
+MEDIA_URL = "/media/"
+DEFAULT_FILE_STORAGE = "mongoengine.django.storage.GridFSStorage"
+
+mimetypes.init()

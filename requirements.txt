@@ -9,14 +9,16 @@ futures==2.1.6
 git+https://github.com/kennethreitz/dj-static.git@b02979384d7c7a6944375c5959224bff40c2035a#egg=dj-static
 gunicorn==19.0.0
 https://github.com/micktwomey/django-imagekit/archive/193dc00ac71a53c86e41da0cc7d48120056cd90c.zip#egg=django-imagekit
-https://www.djangoproject.com/download/1.7.b4/tarball/#egg=Django
+https://www.djangoproject.com/download/1.7c1/tarball/#egg=Django
 iso8601==0.1.10
 Markdown==2.4.1
+mongoengine==0.8.7
 newrelic==2.22.1.20
 oauthlib==0.6.3
 pilkit==1.1.9
 Pillow==2.4.0
 psycopg2==2.5.3
+pymongo==2.7.1
 pystache==0.5.4
 python3-memcached==1.51
 python3-openid==3.0.4
