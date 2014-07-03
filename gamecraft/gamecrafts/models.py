@@ -253,6 +253,19 @@ def get_global_sponsorships():
     )
 
 
+def get_all_sponsorships_by_year():
+    """Returns sponsorships by year
+
+    """
+    years = {}
+    for sponsorship in Sponsorship.objects.order_by("-starts", "level", "-created", "-modified"):
+        if not sponsorship.starts:
+            continue
+        years.setdefault(sponsorship.starts.year, []).append(sponsorship)
+
+    return [{"year": year, "sponsorships": sponsorships} for (year, sponsorships) in sorted(years.items())]
+
+
 class PublishedNewsManager(models.Manager):
     """Filters news by public and published date
 

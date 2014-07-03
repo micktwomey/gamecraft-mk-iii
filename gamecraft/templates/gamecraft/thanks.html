@@ -1,0 +1,35 @@
+{% extends "gamecraft/base_gamecraft.html" %}
+
+{% load markdown %}
+
+{% block title %}GameCraft Thanks{% endblock %}
+
+{% block content %}
+<div class="container">
+<h1>Thanks to Everyone Who Makes GameCraft a Success</h1>
+<p>GameCraft events wouldn't be possible without the help of volunteers, venues, participants and sponsors.</p>
+
+<h1>Sponsors</h1>
+<p>GameCraft couldn't possibly run as many events as we do without the generous aid of the following sponsors.</p>
+
+{% for year in sponsorship_years %}
+<div>
+<h2>{{year.year}} Sponsors</h2>
+{% for sponsorship in year.sponsorships %}
+<div>
+<h3>{{sponsorship.get_level_display}} - <a href="{{sponsorship.sponsor.url}}">{{sponsorship.sponsor.name}}</a></h3>
+<div>
+  <a href="{{sponsorship.sponsor.url}}"><img src="{{sponsorship.sponsor.logo_thumbnail_medium.url}}" alt="{{sponsorship.sponsor.name}}"></a>
+</div>
+{% if sponsorship.description %}
+<div>
+  {{ sponsorship.description | markdown }}
+</div>
+{% endif %}
+</div>
+{% endfor %}
+</div>
+{% endfor %}
+
+</div>
+{% endblock %}

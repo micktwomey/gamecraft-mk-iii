@@ -1,0 +1,34 @@
+{% extends "gamecraft/base_gamecraft.html" %}
+
+{% block title %}GameCraft Colophon{% endblock %}
+
+{% block content %}
+<div class="container">
+<h1>Colophon</h1>
+
+<p>This site is written using the following tools and frameworks:</p>
+<ul>
+  <li><a href="http://www.python.org/">Python</a> (programming language)</li>
+  <li><a href="http://www.djangoproject.com/">Django</a> (web framework)</li>
+  <li><a href="http://www.postgresql.org/">PostgreSQL</a> (data, hosted on <a href="http://www.heroku.com/">Heroku</a>)</li>
+  <li><a href="http://www.mongodb.org/">MongoDB</a> (static file storage, hosted on <a href="http://www.mongosoup.de/">MongoSoup</a>)</li>
+  <li><a href="http://redis.io/">Redis</a> (cache and ephemeral storage, hosted on <a href="http://redislabs.com/">Redis Cloud</a>)</li>
+</ul>
+
+<p>This site is hosted on <a href="http://www.heroku.com/">Heroku</a> and fronted by <a href="http://www.cloudflare.com/">CloudFlare</a>.</p>
+
+<p>We use the following tools (many of which set cookies):</p>
+<ul>
+  <li><a href="http://www.cloudflare.com/">CloudFlare</a> (caching and security)</li>
+  <li><a href="http://typekit.com/">TypeKit</a> (fonts)</li>
+  <li><a href="http://www.newrelic.com/">New Relic</a> (monitoring)</li>
+  <li><a href="http://www.getsentry.com/">Sentry</a> (error tracking)</li>
+  <li><a href="http://papertrailapp.com/">Papertrail</a> (logging)</li>
+</ul>
+
+<p>For the most part this is a Django site running on Heroku. Mick just went a bit mad adding add-ons.</p>
+
+<p>Code is hosted <a href="https://github.com/micktwomey/gamecraft-mk-iii">here</a> on <a href="http://github.com/">GitHub</a>. This site is in large part an exercise in using pre-release Django 1.7 with Python 3.4 on Heroku. Essentially how to make things hard for ourselves.</p>
+
+</div>
+{% endblock %}
