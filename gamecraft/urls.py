@@ -20,15 +20,5 @@ urlpatterns = patterns('',
     # url(r'^manifest\.appcache$', ManifestView.as_view(), name="cache_manifest"),
     url(r'^accounts/profile/$', TemplateView.as_view(template_name='gamecraft/profile.html'), name="account_profile"),
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^media/(?P<path>.*)$', 'gamecraft.views.get_media'),
 )
-
-if settings.DEBUG:
-    urlpatterns += patterns('',
-        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
-            'document_root': settings.MEDIA_ROOT,
-        }),
-    )
-else:
-    urlpatterns += patterns('',
-        url(r'^media/(?P<path>.*)$', 'gamecraft.views.get_media'),
-    )

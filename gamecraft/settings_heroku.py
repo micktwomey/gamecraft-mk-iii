@@ -1,33 +1,10 @@
-import mimetypes
 import os
 import urllib.parse
 
-import dj_database_url
-
-import mongoengine
-
-from gamecraft.settings import *
+from gamecraft.settings_heroku_base import *
 
 DEBUG = False
 TEMPLATE_DEBUG = False
-
-# Parse database configuration from $DATABASE_URL
-DATABASES['default'] = dj_database_url.config()
-
-# Honor the 'X-Forwarded-Proto' header for request.is_secure()
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-# Allow all host headers
-ALLOWED_HOSTS = ['*']
-
-# Static asset configuration
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = 'staticfiles'
-STATIC_URL = '/static/'
-
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
 
 INSTALLED_APPS = INSTALLED_APPS + (
     'raven.contrib.django.raven_compat',
@@ -51,15 +28,6 @@ CACHES = {
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 SESSION_CACHE_ALIAS = 'default'
-
-# Set up the mongo connection
-mongoengine.connect("gamecraft", host=os.environ["MONGOSOUP_URL"])
-
-MEDIA_URL = "/media/"
-DEFAULT_FILE_STORAGE = "mongoengine.django.storage.GridFSStorage"
-
-mimetypes.init()
-
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.cache.UpdateCacheMiddleware',
