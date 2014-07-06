@@ -12,10 +12,15 @@ class SmokeTestEmptyDB(TestCase):
         for path, status in (
             ("/", 200),
             ("/codeofconduct/", 200),
-            ("/events/fake-gamecraft/", 404),
+            ("/colophon/", 200),
             ("/events/", 200),
+            ("/events/fake-gamecraft/", 404),
+            ("/events/rss/", 200),
+            ("/legal/", 302),
             ("/news/", 200),
             ("/news/2014/06/12/foo/", 404),
+            ("/privacy/", 200),
+            ("/thanks/", 200),
         ):
             resp = self.client.get(path)
             self.assertEqual(resp.status_code, status)
@@ -28,10 +33,17 @@ class SmokeTestViews(TestCase):
         for path, status in (
             ("/", 200),
             ("/codeofconduct/", 200),
+            ("/colophon/", 200),
+            ("/events/", 200),
             ("/events/dublin-gamecraft-1/", 200),
             ("/events/dublin-gamecraft-ii/", 200),
             ("/events/fake-gamecraft/", 404),
-            ("/events/", 200),
+            ("/events/rss/", 200),
+            ("/legal/", 302),
+            ("/news/", 200),
+            ("/news/2014/06/12/foo/", 404),
+            ("/privacy/", 200),
+            ("/thanks/", 200),
         ):
             resp = self.client.get(path)
             self.assertEqual(resp.status_code, status)
