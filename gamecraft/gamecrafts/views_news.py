@@ -10,7 +10,7 @@ LOG = logging.getLogger(__name__)
 
 def news_index(request):
     news = models.News.published_objects.all()
-    return render(request, "gamecraft/news_index.html", {"all_news": news})
+    return render(request, "gamecraft/news/index.html", {"all_news": news})
 
 
 def view_news(request, year, month, day, slug):
@@ -19,4 +19,4 @@ def view_news(request, year, month, day, slug):
         news = models.get_news(year, month, day, slug)
     except models.NewsNotFound:
         raise django.http.Http404()
-    return render(request, "gamecraft/view_news.html", {"news": news})
+    return render(request, "gamecraft/news/view.html", {"news": news})

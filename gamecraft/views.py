@@ -24,15 +24,15 @@ def frontpage(request):
 
 
 def codeofconduct(request):
-    return render(request, "gamecraft/codeofconduct.html", {})
+    return render(request, "gamecraft/general/codeofconduct.html", {})
 
 
 def thanks(request):
-    return render(request, "gamecraft/thanks.html", {"sponsorship_years": get_all_sponsorships_by_year()})
+    return render(request, "gamecraft/general/thanks.html", {"sponsorship_years": get_all_sponsorships_by_year()})
 
 
 def privacy(request):
-    return render(request, "gamecraft/privacy.html", {})
+    return render(request, "gamecraft/general/privacy.html", {})
 
 
 def legal(request):
@@ -40,7 +40,7 @@ def legal(request):
 
 
 def colophon(request):
-    return render(request, "gamecraft/colophon.html", {})
+    return render(request, "gamecraft/general/colophon.html", {})
 
 
 def get_media(request, path):

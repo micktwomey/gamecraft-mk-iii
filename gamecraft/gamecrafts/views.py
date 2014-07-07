@@ -22,7 +22,7 @@ LOG = logging.getLogger(__name__)
 
 def list_gamecrafts(request):
     gamecrafts = GameCraft.published.all()
-    return render(request, "gamecraft/list_gamecrafts.html", {"gamecrafts": gamecrafts})
+    return render(request, "gamecraft/gamecraft/index.html", {"gamecrafts": gamecrafts})
 
 
 @permission_required('gamecrafts.modify_gamecraft')
@@ -56,7 +56,7 @@ def edit_gamecraft(request, slug):
             redirect(gc)
     else:
         form = GameCraftForm(instance=gc)
-    return render(request, "gamecraft/edit_gamecraft.html", {"gamecraft": gc, "form": form})
+    return render(request, "gamecraft/gamecraft/edit.html", {"gamecraft": gc, "form": form})
 
 
 def view_gamecraft(request, slug):
@@ -64,7 +64,7 @@ def view_gamecraft(request, slug):
     LOG.debug("Got GameCraft {}".format(gc))
     sponsorships = get_sponsorships_for_gamecraft(gc)
     LOG.debug("Got sponsorships {} for gamecraft {}".format(sponsorships, gc))
-    return render(request, "gamecraft/view_gamecraft.html", {
+    return render(request, "gamecraft/gamecraft/view.html", {
         "gamecraft": gc,
         "global_sponsorships": sponsorships["global"],
         "gamecraft_sponsorships": sponsorships["gamecraft"],

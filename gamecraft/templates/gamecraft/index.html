@@ -1,5 +1,5 @@
 
-{% extends "gamecraft/base_gamecraft.html" %}
+{% extends "gamecraft/gamecraft/base.html" %}
 
 {% load static %}
 {% load tz %}
@@ -29,7 +29,7 @@
 <section class="sponsors">
   <div class="container">
   <h1><span class="glyphicon glyphicon-heart-empty"> Sponsors</h1>
-  {% include "gamecraft/sponsor_banner.html" %}
+  {% include "gamecraft/includes/sponsor_banner.html" %}
   </div>
 </section>
 {% endif %}

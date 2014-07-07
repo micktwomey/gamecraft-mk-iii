@@ -25,3 +25,7 @@ Ok, you can also create a virtualenv and pip install -r requirements.txt, but th
 1. git commit
 2. git push heroku master
 
+## Testing
+
+1. pip3.4 install -r requirements.txt
+2. python3.4 manage_development.py test --settings=gamecraft.settings
