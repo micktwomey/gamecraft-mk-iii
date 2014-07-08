@@ -8,8 +8,10 @@ docutils==0.11
 futures==2.1.6
 git+https://github.com/kennethreitz/dj-static.git@b02979384d7c7a6944375c5959224bff40c2035a#egg=dj-static
 gunicorn==19.0.0
+https://bitbucket.org/micktwomey/django-ical/get/719e3c6e60ca.zip#egg=django-ical
 https://github.com/micktwomey/django-imagekit/archive/193dc00ac71a53c86e41da0cc7d48120056cd90c.zip#egg=django-imagekit
 https://www.djangoproject.com/download/1.7c1/tarball/#egg=Django
+icalendar==3.7
 iso8601==0.1.10
 Markdown==2.4.1
 mongoengine==0.8.7
