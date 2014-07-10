@@ -17,7 +17,7 @@
 <h2>{{year.year}} Sponsors</h2>
 {% for sponsorship in year.sponsorships %}
 <div>
-<h3>{{sponsorship.get_level_display}} - <a href="{{sponsorship.sponsor.url}}">{{sponsorship.sponsor.name}}</a></h3>
+<h3>{% if sponsorship.level %}{{sponsorship.get_level_display}} - {% endif %}<a href="{{sponsorship.sponsor.url}}">{{sponsorship.sponsor.name}}</a></h3>
 <div>
   <a href="{{sponsorship.sponsor.url}}"><img src="{{sponsorship.sponsor.logo_thumbnail_medium.url}}" alt="{{sponsorship.sponsor.name}}"></a>
 </div>
