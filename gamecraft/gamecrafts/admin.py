@@ -16,6 +16,17 @@ class GameCraftAdmin(admin.ModelAdmin):
     list_filter = ("public",)
     search_fields = ("slug", "title", "location", "judges", "content", "theme")
 
+    class Media:
+        css = {
+            "all": ("css/editor/editor.css",)
+        }
+        js = (
+            "js/jquery.js",
+            "js/marked.js",
+            "js/editor.js",
+            "js/admin_editor.js",
+        )
+
 admin.site.register(models.GameCraft, GameCraftAdmin)
 
 
@@ -38,6 +49,17 @@ class SponsorshipAdmin(admin.ModelAdmin):
     date_hierarchy = 'starts'
     list_display = ("sponsor", "starts", "ends", "gamecraft", "created", "modified")
 
+    class Media:
+        css = {
+            "all": ("css/editor/editor.css",)
+        }
+        js = (
+            "js/jquery.js",
+            "js/marked.js",
+            "js/editor.js",
+            "js/admin_editor.js",
+        )
+
 admin.site.register(models.Sponsorship, SponsorshipAdmin)
 
 
@@ -49,4 +71,16 @@ class NewsAdmin(admin.ModelAdmin):
     list_display = ("title", "gamecraft", "published", "created", "modified", "public")
     list_filter = ("public",)
     search_fields = ("slug", "title", "content")
+
+    class Media:
+        css = {
+            "all": ("css/editor/editor.css",)
+        }
+        js = (
+            "js/jquery.js",
+            "js/marked.js",
+            "js/editor.js",
+            "js/admin_editor.js",
+        )
+
 admin.site.register(models.News, NewsAdmin)
