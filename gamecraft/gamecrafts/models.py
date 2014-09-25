@@ -195,6 +195,8 @@ SPONSORSHIP_LEVELS = (
     (20, "Gold"),
     (30, "Silver"),
     (40, "Indies"),
+    (50, "Partner"),
+    (60, "Media Partner"),
     # GOTO 10
 )
 
