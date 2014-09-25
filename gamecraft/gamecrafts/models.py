@@ -260,12 +260,21 @@ def get_all_sponsorships_by_year():
 
     """
     years = {}
-    for sponsorship in Sponsorship.objects.order_by("level", "-starts", "-created", "-modified"):
+    # extra ordering trick from http://stackoverflow.com/questions/7749216/django-order-by-date-but-have-none-at-end
+    for sponsorship in (
+            Sponsorship.objects.extra(
+                select={
+                    "level_is_null": "level IS NULL",
+                    "starts_is_null": "starts IS NULL",
+                }
+            )
+            .order_by("level_is_null", "level", "starts_is_null", "-starts", "-created", "-modified")
+        ):
         if not sponsorship.starts:
             continue
         years.setdefault(sponsorship.starts.year, []).append(sponsorship)
 
-    return [{"year": year, "sponsorships": sponsorships} for (year, sponsorships) in sorted(years.items())]
+    return [{"year": year, "sponsorships": sponsorships} for (year, sponsorships) in sorted(years.items(), reverse=True)]
 
 
 class PublishedNewsManager(models.Manager):

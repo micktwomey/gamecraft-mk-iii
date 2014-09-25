@@ -1,7 +1,9 @@
-from datetime import timedelta
+import datetime
 
 from django.test import TestCase
 from django.utils import timezone
+
+import pytz
 
 from gamecraft.gamecrafts import models
 
@@ -17,8 +19,8 @@ class GameCraftModelTestCase(TestCase):
         self.future_gamecraft = models.GameCraft(
             slug="from-the-future",
             title="From the Future",
-            starts=self.now() + timedelta(days=1),
-            ends=self.now() + timedelta(days=1, minutes=60),
+            starts=self.now() + datetime.timedelta(days=1),
+            ends=self.now() + datetime.timedelta(days=1, minutes=60),
             public=True,
         )
         self.future_gamecraft.save()
@@ -28,8 +30,8 @@ class GameCraftModelTestCase(TestCase):
         self.started_gamecraft = models.GameCraft(
             slug="from-the-present",
             title="From the Present",
-            starts=self.now() - timedelta(minutes=60),
-            ends=self.now() + timedelta(minutes=60),
+            starts=self.now() - datetime.timedelta(minutes=60),
+            ends=self.now() + datetime.timedelta(minutes=60),
             public=True,
         )
         self.started_gamecraft.save()
@@ -80,3 +82,41 @@ class GameCraftModelTestCase(TestCase):
         self.assertFalse(self.future_gamecraft.show_theme())
         self.future_gamecraft.theme = "A theme!"
         self.assertFalse(self.future_gamecraft.show_theme())
+
+
+class SponsorshipTestCase(TestCase):
+    def test_get_all_sponsorships_by_year(self):
+        sponsor = models.Sponsor(
+            slug="my-sponsor",
+            name="My Sponsor",
+            url="http://example.com/",
+        )
+        sponsor.save()
+
+        sponsorships = []
+        for (level, start, end, description) in (
+            (10, datetime.datetime(2014, 1, 1, tzinfo=pytz.UTC), datetime.datetime(2015, 1, 1, tzinfo=pytz.UTC), "Platinum"),
+            (20, datetime.datetime(2014, 1, 1, tzinfo=pytz.UTC), datetime.datetime(2015, 1, 1, tzinfo=pytz.UTC), "Gold"),
+            (30, datetime.datetime(2014, 1, 1, tzinfo=pytz.UTC), datetime.datetime(2015, 1, 1, tzinfo=pytz.UTC), "Silver"),
+            (40, datetime.datetime(2014, 1, 1, tzinfo=pytz.UTC), datetime.datetime(2015, 1, 1, tzinfo=pytz.UTC), "Indies"),
+            (50, datetime.datetime(2014, 1, 1, tzinfo=pytz.UTC), datetime.datetime(2015, 1, 1, tzinfo=pytz.UTC), "Partner"),
+            (60, datetime.datetime(2014, 1, 1, tzinfo=pytz.UTC), datetime.datetime(2015, 1, 1, tzinfo=pytz.UTC), "Media Partner"),
+            (None, datetime.datetime(2014, 1, 1, tzinfo=pytz.UTC), datetime.datetime(2015, 1, 1, tzinfo=pytz.UTC), "None"),
+        ):
+            sponsorship = models.Sponsorship(
+                starts=start,
+                ends=end,
+                sponsor=sponsor,
+                level=level,
+            )
+            sponsorship.save()
+            sponsorships.append(sponsorship)
+
+        years = models.get_all_sponsorships_by_year()
+        self.assertEqual(len(years), 1)
+
+        year = years[0]
+        self.assertEqual(year["year"], 2014)
+
+        levels = [sponsorship.level for sponsorship in year["sponsorships"]]
+        self.assertListEqual(levels, [10, 20, 30, 40, 50, 60, None])
