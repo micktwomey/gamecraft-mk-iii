@@ -30,6 +30,8 @@ apt-get install -q -y \
 apt-get -q -y clean
 apt-get -q -y autoremove
 
+usermod --append -G docker vagrant
+
 # Listen on TCP for docker
 # This effectively apes boot2docker, now you can set DOCKER_HOST=tcp://localhost:2375 and get docker :)
 sed --in-place=.bak --regexp-extended 's;^#?DOCKER_OPTS=.*;DOCKER_OPTS="-H unix:// -H tcp://0.0.0.0:2375";' /etc/default/docker
