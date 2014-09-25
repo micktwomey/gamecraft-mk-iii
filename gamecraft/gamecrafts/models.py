@@ -260,7 +260,7 @@ def get_all_sponsorships_by_year():
 
     """
     years = {}
-    for sponsorship in Sponsorship.objects.order_by("-starts", "level", "-created", "-modified"):
+    for sponsorship in Sponsorship.objects.order_by("level", "-starts", "-created", "-modified"):
         if not sponsorship.starts:
             continue
         years.setdefault(sponsorship.starts.year, []).append(sponsorship)
