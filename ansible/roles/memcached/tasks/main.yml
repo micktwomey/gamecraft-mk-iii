@@ -1,3 +1,0 @@
----
-- name: Ensure memcached is started
-  docker: image=micktwomey/memcached:latest name=memcached state=running

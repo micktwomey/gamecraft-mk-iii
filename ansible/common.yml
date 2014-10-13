@@ -1,4 +1,0 @@
----
-- hosts: gamecraft.twomeylee.name
-  roles:
-    - base

@@ -1,3 +1,0 @@
----
-- name: Ensure postgresql is started
-  docker: image=micktwomey/postgresql name=postgresql state=running

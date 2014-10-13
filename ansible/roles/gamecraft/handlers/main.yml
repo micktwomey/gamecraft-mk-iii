@@ -1,8 +1,0 @@
----
-- name: restart gamecraft
-  docker:
-    image={{gamecraft_image}}
-    name=gamecraft
-    state=running
-    links={{gamecraft_links}}
-    volumes={{gamecraft_volumes}}

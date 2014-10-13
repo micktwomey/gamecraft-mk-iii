@@ -1,8 +1,0 @@
----
-- name: restart varnish
-  docker:
-    image=micktwomey/django-varnish
-    name=varnish
-    state=restarted
-    ports=80:6081
-    links=gamecraft:backend
