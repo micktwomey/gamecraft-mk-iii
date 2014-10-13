@@ -45,11 +45,3 @@ In fish:
 ```sh
 source (heroku config -a gamecraft-it-staging --shell | sed -E 's/^([A-Z_]+)=(.*)/set -x \1 "\2"/g' | psub)
 ```
-
-Then you can run:
-
-```
-python3.4 manage_development.py runserver --settings=gamecraft.settings_heroku_development
-```
-
-This will use the staging db and content with your local code.
