@@ -14,6 +14,7 @@ import django.utils.timezone
 
 from gamecraft.gamecrafts.models import (
     GameCraft,
+    get_gamecrafts,
     get_sponsorships_for_gamecraft,
 )
 
@@ -21,7 +22,7 @@ LOG = logging.getLogger(__name__)
 
 
 def list_gamecrafts(request):
-    gamecrafts = GameCraft.published.all()
+    gamecrafts = get_gamecrafts()
     return render(request, "gamecraft/gamecraft/index.html", {"gamecrafts": gamecrafts})
 
 

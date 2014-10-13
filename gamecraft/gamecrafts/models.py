@@ -125,6 +125,16 @@ class GameCraft(models.Model):
         return self.news.filter(public=True).filter(published__lte=timezone.now())
 
 
+def get_gamecrafts():
+    """Get all gamecrafts grouped by state
+
+    """
+    gamecrafts = {}
+    for gc in GameCraft.published.all().order_by("starts"):
+        gamecrafts.setdefault(gc.state(), []).append(gc)
+    return gamecrafts
+
+
 def get_upcoming_gamecrafts():
     """Returns a dict of all published upcoming gamecrafts (or current)
 

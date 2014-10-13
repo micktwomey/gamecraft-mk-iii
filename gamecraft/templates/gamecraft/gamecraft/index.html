@@ -18,19 +18,26 @@
 {% if gamecrafts %}
 <section class="gamecrafts">
   <div class="container">
-    {% for gamecraft in gamecrafts %}
-      <div class="gamecraft">
-        <a href="{% url 'view_gamecraft' gamecraft.slug %}">
-          <div class="title">
-            <h1>{{gamecraft.title}}</h1>
-            <h2>{{gamecraft.location}}</h2>
-            {% timezone gamecraft.timezone %}
-            <h3>{{gamecraft.starts | date:"l, F j Y, P T"}}</h3>
-            {% endtimezone %}
-          </div>
-        </a>
-      </div>
-    {% endfor %}
+    {% if gamecrafts.started %}
+      <h1>On Right Now!</h1>
+      {% for gamecraft in gamecrafts.started %}
+        {% include "gamecraft/includes/gamecraft.summary.html" %}
+      {% endfor %}
+    {% endif %}
+
+    {% if gamecrafts.upcoming %}
+      <h1>Upcoming GameCrafts</h1>
+      {% for gamecraft in gamecrafts.upcoming %}
+        {% include "gamecraft/includes/gamecraft.summary.html" %}
+      {% endfor %}
+    {% endif %}
+
+    {% if gamecrafts.finished %}
+      <h1>Past GameCrafts</h1>
+      {% for gamecraft in gamecrafts.finished %}
+        {% include "gamecraft/includes/gamecraft.summary.html" %}
+      {% endfor %}
+    {% endif %}
   </div>
 </section>
 {% else %}
