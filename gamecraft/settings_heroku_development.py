@@ -2,8 +2,7 @@
 
 To run with these settings generate a config you can source with bash using:
 
-    heroku config -a gamecraft-it-staging --shell | sed -E 's/^([A-Z_]+=)(.*)/export \1"\2"/g' > heroku.bash
-    . heroku.bash
+    eval $(heroku config -a gamecraft-it-staging --shell | sed -E 's/^([A-Z_]+=)(.*)/export \1"\2"/g')
 
 For fish:
 

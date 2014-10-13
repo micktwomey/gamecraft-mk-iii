@@ -29,3 +29,27 @@ Ok, you can also create a virtualenv and pip install -r requirements.txt, but th
 
 1. pip3.4 install -r requirements.txt
 2. python3.4 manage_development.py test --settings=gamecraft.settings
+
+## Running the Code
+
+If you want to run against the staging db with your local code a neat trick is to eval the Heroku config variables.
+
+In bash:
+
+```sh
+eval $(heroku config -a gamecraft-it-staging --shell | sed -E 's/^([A-Z_]+=)(.*)/export \1"\2"/g')
+```
+
+In fish:
+
+```sh
+source (heroku config -a gamecraft-it-staging --shell | sed -E 's/^([A-Z_]+)=(.*)/set -x \1 "\2"/g' | psub)
+```
+
+Then you can run:
+
+```
+python3.4 manage_development.py runserver --settings=gamecraft.settings_heroku_development
+```
+
+This will use the staging db and content with your local code.
