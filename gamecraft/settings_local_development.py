@@ -1,30 +1,25 @@
-"""Base Heroku settings
-
-"""
-import os
-
-import dj_database_url
-
-import mongoengine
-
 from gamecraft.settings import *
 
-SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
+import os
 
-# Parse database configuration from $DATABASE_URL
-DATABASES['default'] = dj_database_url.config()
+DJANGO_SECRET_KEY = "foo"
 
-# Honor the 'X-Forwarded-Proto' header for request.is_secure()
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.environ.get("GAMECRAFT_SQLITE_DB", "/tmp/gamecraft.sqlite"),
+    }
+}
 
-# Allow all host headers
-ALLOWED_HOSTS = ['*']
+INSTALLED_APPS = INSTALLED_APPS + (
+    'debug_toolbar.apps.DebugToolbarConfig',
+)
 
-# Set up the mongo connection
-mongoengine.connect("gamecraft", host=os.environ["MONGOSOUP_URL"])
+INTERNAL_IPS = ['127.0.0.1', 'localhost', '::1']
 
-MEDIA_URL = "/media/"
-DEFAULT_FILE_STORAGE = "mongoengine.django.storage.GridFSStorage"
+DEBUG_TOOLBAR_CONFIG = {
+    "SHOW_TOOLBAR_CALLBACK": "gamecraft.utils.debug_toolbar_callback",
+}
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 

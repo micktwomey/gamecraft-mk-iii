@@ -45,3 +45,13 @@ In fish:
 ```sh
 source (heroku config -a gamecraft-it-staging --shell | sed -E 's/^([A-Z_]+)=(.*)/set -x \1 "\2"/g' | psub)
 ```
+
+# Config Files
+
+There are a few settings files:
+
+- gamecraft.settings (base settings, use these for tests)
+    + gamecraft.settings_heroku_base (core heroku settings)
+        * gamecraft.settings_heroku (production heroku settings)
+        * gamecraft.settings_heroku_development (local development with heroku db)
+    + gamecraft.settings_local_development (local development with sqlite)

@@ -8,6 +8,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
 
+import mimetypes
+mimetypes.init()
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -46,6 +49,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.twitter',
     'django.contrib.admindocs',
     'imagekit',
+    'django.contrib.redirects',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -55,6 +59,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
 )
 
 
