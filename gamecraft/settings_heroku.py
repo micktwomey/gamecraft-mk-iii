@@ -40,4 +40,5 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.gzip.GZipMiddleware',
     'pipeline.middleware.MinifyHTMLMiddleware',
     'django.middleware.cache.FetchFromCacheMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
 )
