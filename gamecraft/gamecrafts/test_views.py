@@ -22,6 +22,7 @@ class SmokeTestEmptyDB(TestCase):
             ("/news/2014/06/12/foo/", 404),
             ("/privacy/", 200),
             ("/thanks/", 200),
+            ("/robots.txt", 200),
         ):
             resp = self.client.get(path)
             self.assertEqual(resp.status_code, status)
@@ -46,6 +47,7 @@ class SmokeTestViews(TestCase):
             ("/news/2014/06/12/foo/", 404),
             ("/privacy/", 200),
             ("/thanks/", 200),
+            ("/robots.txt", 200),
         ):
             resp = self.client.get(path)
             self.assertEqual(resp.status_code, status)

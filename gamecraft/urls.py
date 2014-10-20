@@ -1,10 +1,14 @@
 from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-
+from django.http import HttpResponse
 from django.views.generic.base import TemplateView
 
 # from manifesto.views import ManifestView
+
+
+def robots_txt(request):
+    return HttpResponse("User-agent: *\nDisallow:", content_type="text/plain")
 
 urlpatterns = patterns('',
     url(r'^$', 'gamecraft.views.frontpage', name='frontpage'),
@@ -21,4 +25,5 @@ urlpatterns = patterns('',
     url(r'^accounts/profile/$', TemplateView.as_view(template_name='gamecraft/profile.html'), name="account_profile"),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^media/(?P<path>.*)$', 'gamecraft.views.get_media'),
+    url(r'^robots.txt$', robots_txt),
 )
