@@ -1,0 +1,8 @@
+machine:
+  python:
+    version: 3.4.1
+
+test:
+  override:
+    - python3.4 manage_development.py test --settings=gamecraft.settings
+
