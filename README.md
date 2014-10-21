@@ -23,7 +23,9 @@ Ok, you can also create a virtualenv and pip install -r requirements.txt, but th
 ## Deployment
 
 1. git commit
-2. git push heroku master
+2. git push origin master
+
+This will trigger a build on https://circleci.com/gh/micktwomey/gamecraft-mk-iii which in turn pushes to Heroku. *every push to origin/master triggers a deployment on successful test*
 
 ## Testing
 
@@ -32,7 +34,7 @@ Ok, you can also create a virtualenv and pip install -r requirements.txt, but th
 
 ## Running the Code
 
-If you want to run against the staging db with your local code a neat trick is to eval the Heroku config variables.
+If you want to run against the heroku db with your local code a neat trick is to eval the Heroku config variables.
 
 In bash:
 
@@ -55,3 +57,5 @@ There are a few settings files:
         * gamecraft.settings_heroku (production heroku settings)
         * gamecraft.settings_heroku_development (local development with heroku db)
     + gamecraft.settings_local_development (local development with sqlite)
+
+https://github.com/micktwomey/gamecraft-mk-iii/issues/2 covers getting these back into a sensible state again.
