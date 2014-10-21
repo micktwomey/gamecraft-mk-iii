@@ -6,3 +6,8 @@ test:
   override:
     - python3.4 manage_development.py test --settings=gamecraft.settings
 
+deployment:
+  staging:
+    branch: master
+    heroku:
+      appname: gamecraft-it-eu
