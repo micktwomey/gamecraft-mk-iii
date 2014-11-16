@@ -97,7 +97,9 @@ footer {
 
             h1 {
                 margin: 0;
-                font-size: 72pt;
+                @media (min-width: @screen-md-min) {
+                    font-size: 72pt;
+                }
             }
         }
 
@@ -155,7 +157,9 @@ footer {
             // background-color: fade(@gamecraft-title-colour, 20%);
 
             h1 {
-                font-size: 72pt;
+                @media (min-width: @screen-md-min) {
+                    font-size: 72pt;
+                }
             }
 
             .logo {
