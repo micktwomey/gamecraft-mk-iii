@@ -3,14 +3,52 @@ import datetime
 from django.test import TestCase
 from django.utils import timezone
 
+import mock
+
 import pytz
 
 from gamecraft.gamecrafts import models
 
 
-class GameCraftModelTestCase(TestCase):
+class GameCraftFixtureTestCase(TestCase):
     maxDiff = None
     fixtures = ["gamecrafts"]
+
+    def test_finished_state(self):
+        gc = models.GameCraft.objects.get(slug="dublin-gamecraft-1")
+        self.assertEqual(gc.state(), "finished")
+        self.assertFalse(gc.started())
+        self.assertTrue(gc.finished())
+        self.assertFalse(gc.upcoming())
+
+    def test_show_theme(self):
+
+        gc = models.GameCraft.objects.get(slug="dublin-gamecraft-1")
+        self.assertNotEqual(gc.theme, "")
+        self.assertTrue(gc.show_theme())
+
+    def test_cork_gamecraft_now(self):
+        """Problem with Cork GC showing up as finished
+
+        Turns out it's end time was < start time :)
+        """
+        gc = models.GameCraft.objects.get(slug="cork-gamecraft-2014")
+        with mock.patch("gamecraft.gamecrafts.models.timezone") as timezone:
+            timezone.now.return_value = datetime.datetime(2014, 11, 22, 9, 0, 0, tzinfo=pytz.UTC)
+            self.assertTrue(gc.upcoming())
+            self.assertFalse(gc.started())
+            self.assertFalse(gc.finished())
+            self.assertEqual(gc.state(), "upcoming")
+
+            timezone.now.return_value = datetime.datetime(2014, 11, 22, 10, 1, 0, tzinfo=pytz.UTC)
+            self.assertFalse(gc.upcoming())
+            self.assertTrue(gc.started())
+            self.assertFalse(gc.finished())
+            self.assertEqual(gc.state(), "started")
+
+
+class GameCraftModelTestCase(TestCase):
+    maxDiff = None
 
     def now(self):
         return timezone.now()
@@ -58,18 +96,7 @@ class GameCraftModelTestCase(TestCase):
         self.assertFalse(self.future_gamecraft.finished())
         self.assertTrue(self.future_gamecraft.upcoming())
 
-    def test_finished_state(self):
-        gc = models.GameCraft.objects.get(slug="dublin-gamecraft-1")
-        self.assertEqual(gc.state(), "finished")
-        self.assertFalse(gc.started())
-        self.assertTrue(gc.finished())
-        self.assertFalse(gc.upcoming())
-
     def test_show_theme(self):
-
-        gc = models.GameCraft.objects.get(slug="dublin-gamecraft-1")
-        self.assertNotEqual(gc.theme, "")
-        self.assertTrue(gc.show_theme())
 
         self.add_started_gamecraft()
         self.assertEqual(self.started_gamecraft.theme, "")
@@ -118,5 +145,5 @@ class SponsorshipTestCase(TestCase):
         year = years[0]
         self.assertEqual(year["year"], 2014)
 
-        levels = [sponsorship.level for sponsorship in year["sponsorships"]]
+        levels = [s.level for s in year["sponsorships"]]
         self.assertListEqual(levels, [10, 20, 30, 40, 50, 60, None])
