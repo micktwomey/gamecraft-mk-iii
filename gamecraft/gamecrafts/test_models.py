@@ -46,6 +46,27 @@ class GameCraftFixtureTestCase(TestCase):
             self.assertFalse(gc.finished())
             self.assertEqual(gc.state(), "started")
 
+    def test_cork_gamecraft_sponsorships(self):
+        """Seems sponsors are appearing an incorrect amount of times"""
+        gc = models.GameCraft.objects.get(slug="cork-gamecraft-2014")
+        sponsorships = models.get_sponsorships_for_gamecraft(gc)
+        # convert to just the names
+        sponsorships["gamecraft"] = [s.sponsor.name for s in sponsorships["gamecraft"]]
+        sponsorships["global"] = [s.sponsor.name for s in sponsorships["global"]]
+        # Sponsors are appearing in both the local and the global, de-dupe
+        self.assertDictEqual(sponsorships, {
+            'gamecraft': [],
+            'global': [
+                'Leman Solicitors',
+                'Microsoft',
+                'Skills Matter',
+                'Demonware',
+                'SixMinute',
+                "St. John's Central College",
+                'Evening Echo'
+            ]
+        })
+
 
 class GameCraftModelTestCase(TestCase):
     maxDiff = None

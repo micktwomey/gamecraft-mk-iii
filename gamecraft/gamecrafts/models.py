@@ -246,13 +246,18 @@ def get_sponsorships_for_gamecraft(gamecraft):
     """Returns a dict of global and event sponsorships
 
     """
-    return {
-        "gamecraft": list(gamecraft.sponsorship_set.all()),
+    sponsorships = {
+        "gamecraft": [],
         "global": list(Sponsorship.objects.filter(
             starts__lte=gamecraft.ends,
             ends__gte=gamecraft.starts,
         ).all()),
     }
+    sponsorships["gamecraft"] = [
+        sponsorship for sponsorship in gamecraft.sponsorship_set.all()
+        if sponsorship.sponsor not in [s.sponsor for s in sponsorships["global"]]
+    ]
+    return sponsorships
 
 
 def get_global_sponsorships():
