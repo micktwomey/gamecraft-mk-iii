@@ -48,6 +48,20 @@ In fish:
 source (heroku config -a gamecraft-it-staging --shell | sed -E 's/^([A-Z_]+)=(.*)/set -x \1 "\2"/g' | psub)
 ```
 
+Running a local server against the Heroku db:
+```sh
+python3.4 manage.py runserver --settings gamecraft.settings_heroku_development 0.0.0.0:8000
+```
+
+### Node
+
+You may need to do some node stuff (fish example below):
+
+```sh
+npm install less
+set -lx PATH (pwd)/node_modules/less/bin $PATH
+```
+
 # Config Files
 
 There are a few settings files:
@@ -59,3 +73,10 @@ There are a few settings files:
     + gamecraft.settings_local_development (local development with sqlite)
 
 https://github.com/micktwomey/gamecraft-mk-iii/issues/2 covers getting these back into a sensible state again.
+
+# Copying Data
+
+To copy data from the live site to staging:
+```
+heroku pgbackups:transfer --app gamecraft-it-staging gamecraft-it-eu::PURPLE HEROKU_POSTGRESQL_RED
+```
