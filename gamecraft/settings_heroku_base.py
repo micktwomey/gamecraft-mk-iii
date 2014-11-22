@@ -57,7 +57,8 @@ PIPELINE_JS = {
             'js/jquery.js',
             'js/bootstrap.js',
             'js/leaflet.js',
-            # 'js/react-with-addons.js',  # bug in processing the '\uFEFF' in the file
+            'js/react-with-addons.js',
+            'js/JSXTransformer.js',
         ),
         'output_filename': 'js/gamecraft.js',
     },
