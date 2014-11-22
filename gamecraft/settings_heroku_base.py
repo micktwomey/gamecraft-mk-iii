@@ -56,3 +56,5 @@ PIPELINE_JS = {
         'output_filename': 'js/gamecraft.js',
     },
 }
+
+IMAGEKIT_CACHE_BACKEND = "default"
