@@ -1,4 +1,4 @@
-{% load compressed %}
+{% load pipeline %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +20,7 @@
 
     <link rel="shortcut icon" href="{% static 'img/gamecraft-logo-64x64.png' %}"/>
     {% block css %}
-    {% compressed_css 'gamecraft' %}
+    {% stylesheet 'gamecraft' %}
     {% endblock %}
 
     {% block head %}{% endblock %}
@@ -29,7 +29,7 @@
     {% block body %}{% endblock %}
 
     {% block script %}
-    {% compressed_js 'gamecraft' %}
+    {% javascript 'gamecraft' %}
     {% endblock %}
   </body>
 </html>

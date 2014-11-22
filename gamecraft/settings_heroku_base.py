@@ -28,6 +28,12 @@ DEFAULT_FILE_STORAGE = "mongoengine.django.storage.GridFSStorage"
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
+)
+
 PIPELINE_COMPILERS = (
     'pipeline.compilers.less.LessCompiler',
 )
