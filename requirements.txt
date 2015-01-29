@@ -1,8 +1,8 @@
+boto==2.36.0
 dj-database-url==0.3.0
 django-allauth==0.18.0
 django-appconf==0.6
 django-debug-toolbar==1.2.2
-django-imagekit==3.2.4
 django-pipeline==1.4.1
 django-redis==3.7.2
 Django==1.7.4
@@ -15,12 +15,9 @@ icalendar==3.8.4
 iso8601==0.1.10
 Markdown==2.5.2
 mock==1.0.1
-mongoengine==0.8.7
 oauthlib==0.7.2
-pilkit==1.1.12
 Pillow==2.7.0
 psycopg2==2.5.4
-pymongo==2.7.2
 pystache==0.5.4
 python3-memcached==1.51
 python3-openid==3.0.5

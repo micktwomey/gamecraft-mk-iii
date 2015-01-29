@@ -16,4 +16,4 @@ class Command(BaseCommand):
         for sponsor in models.Sponsor.objects.all():
             self.stderr.write("{sponsor.slug} {sponsor.name} {sponsor.url} {sponsor.logo_url}\n".format(sponsor=sponsor))
 
-            models.update_image_from_url(sponsor, "logo_url", "logo", save=True)
+            models.update_image_from_url(sponsor, sponsor.slug, "logo_url", "logo", save=True)

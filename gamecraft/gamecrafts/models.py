@@ -11,9 +11,6 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils import timezone
 
-from imagekit.models import ImageSpecField
-from imagekit.processors import ResizeToFit
-
 from PIL import Image
 
 import pytz
@@ -176,9 +173,6 @@ class Sponsor(models.Model):
     url = models.URLField(max_length=500, help_text="URL of sponsor's site.")
 
     logo_url = models.URLField(max_length=500, blank=True, null=True, help_text="URL to download logo from instead of direct upload.")
-    logo = models.ImageField(blank=True, null=True, help_text="The image used for the sponsor logo", upload_to="gamecraft/sponsors/%Y/%m/%d")
-    logo_thumbnail_medium = ImageSpecField(source='logo', processors=[ResizeToFit(300, 50)], format='PNG')
-    logo_thumbnail_small = ImageSpecField(source='logo', processors=[ResizeToFit(100, 20)], format='PNG')
     logo_public_url = models.URLField(max_length=500, blank=True, null=True, help_text="Public URL of the logo (for use in pages).")
     logo_thumbnail_medium_public_url = models.URLField(max_length=500, blank=True, null=True, help_text="Public URL of the medium sized logo (for use in pages).")
     logo_thumbnail_small_public_url = models.URLField(max_length=500, blank=True, null=True, help_text="Public URL of the medium sized logo (for use in pages).")
@@ -203,7 +197,7 @@ def upload_to_s3_and_set_attr(bucket, instance, image_attr, subdir, filename, co
     setattr(instance, image_attr, public_url)
 
 
-def update_image_from_url(instance, url_attr, image_attr, save=False):
+def update_image_from_url(instance, instance_name, url_attr, image_attr, save=False):
     """Fetches the image data from the url of the instance and sets it
 
     Used in conjunction with filepicker.io or a plain url
@@ -223,6 +217,7 @@ def update_image_from_url(instance, url_attr, image_attr, save=False):
         LOG.info("Fetched {} and got {}: {}".format(url, response, response.headers))
         if response.status_code == 200:
             filename = response.headers["X-File-Name"]
+            filename = os.path.join(instance_name, filename)
             LOG.info("Got filename {} for url {}".format(filename, url))
 
             # Upload image to S3 and store URL in image_attr + _public_url

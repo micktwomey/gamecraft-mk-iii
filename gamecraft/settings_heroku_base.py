@@ -5,8 +5,6 @@ import os
 
 import dj_database_url
 
-import mongoengine
-
 from gamecraft.settings import *
 
 SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
@@ -20,11 +18,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
 
-# Set up the mongo connection
-mongoengine.connect("gamecraft", host=os.environ["MONGOSOUP_URL"])
-
 MEDIA_URL = "/media/"
-DEFAULT_FILE_STORAGE = "mongoengine.django.storage.GridFSStorage"
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
@@ -63,8 +57,6 @@ PIPELINE_JS = {
         'output_filename': 'js/gamecraft.js',
     },
 }
-
-IMAGEKIT_CACHE_BACKEND = "default"
 
 AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]
 AWS_SECRET_ACCESS_KEY = os.environ["AWS_SECRET_ACCESS_KEY"]
