@@ -39,13 +39,13 @@ If you want to run against the heroku db with your local code a neat trick is to
 In bash:
 
 ```sh
-eval $(heroku config -a gamecraft-it-staging --shell | sed -E 's/^([A-Z_]+=)(.*)/export \1"\2"/g')
+eval $(heroku config -a gamecraft-it-staging --shell | sed -E 's/^([A-Z0-9_]+=)(.*)/export \1"\2"/g')
 ```
 
 In fish:
 
 ```sh
-source (heroku config -a gamecraft-it-staging --shell | sed -E 's/^([A-Z_]+)=(.*)/set -x \1 "\2"/g' | psub)
+source (heroku config -a gamecraft-it-staging --shell | sed -E 's/^([A-Z0-9_]+)=(.*)/set -x \1 "\2"/g' | psub)
 ```
 
 Running a local server against the Heroku db:

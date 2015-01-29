@@ -1,7 +1,12 @@
 import datetime
+import io
 import logging
+import mimetypes
+import os.path
 
-import django.core.files.base
+import boto
+
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils import timezone
@@ -9,12 +14,17 @@ from django.utils import timezone
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFit
 
+from PIL import Image
+
 import pytz
 
 import requests
 
 LOG = logging.getLogger(__name__)
 MODIFY_GAMECRAFT_PERMISSION = ("modify_gamecraft", "Can create, edit and delete a GameCraft")
+
+THUMBNAIL_MEDIUM_SIZE = (300, 50)
+THUMBNAIL_SMALL_SIZE = (100, 20)
 
 
 class PublishedManager(models.Manager):
@@ -169,6 +179,9 @@ class Sponsor(models.Model):
     logo = models.ImageField(blank=True, null=True, help_text="The image used for the sponsor logo", upload_to="gamecraft/sponsors/%Y/%m/%d")
     logo_thumbnail_medium = ImageSpecField(source='logo', processors=[ResizeToFit(300, 50)], format='PNG')
     logo_thumbnail_small = ImageSpecField(source='logo', processors=[ResizeToFit(100, 20)], format='PNG')
+    logo_public_url = models.URLField(max_length=500, blank=True, null=True, help_text="Public URL of the logo (for use in pages).")
+    logo_thumbnail_medium_public_url = models.URLField(max_length=500, blank=True, null=True, help_text="Public URL of the medium sized logo (for use in pages).")
+    logo_thumbnail_small_public_url = models.URLField(max_length=500, blank=True, null=True, help_text="Public URL of the medium sized logo (for use in pages).")
 
     def __str__(self):
         return self.name
@@ -180,6 +193,16 @@ class Sponsor(models.Model):
         ordering = ["name", "modified"]
 
 
+def upload_to_s3_and_set_attr(bucket, instance, image_attr, subdir, filename, contents):
+    url_format = "media/sponsors/{subdir}/{filename}"
+    key = bucket.new_key(url_format.format(image_attr=image_attr, subdir=subdir, filename=filename))
+    LOG.info("Uploading to {}".format(key))
+    key.set_contents_from_string(contents, headers={'Content-Type': mimetypes.guess_type(filename)[0]}, policy='public-read')
+    public_url = key.generate_url(0, "GET", query_auth=False)
+    LOG.info("Setting public URL {}".format(public_url))
+    setattr(instance, image_attr, public_url)
+
+
 def update_image_from_url(instance, url_attr, image_attr, save=False):
     """Fetches the image data from the url of the instance and sets it
 
@@ -188,6 +211,11 @@ def update_image_from_url(instance, url_attr, image_attr, save=False):
     Use save=True to trigger a save() on the instance.
 
     """
+    LOG.info("Using access key {} and bucket {}".format(settings.AWS_ACCESS_KEY_ID, settings.IMAGES_S3_BUCKET))
+    conn = boto.connect_s3(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
+    LOG.info("Got S3 connection {}".format(conn))
+    bucket = conn.get_bucket(settings.IMAGES_S3_BUCKET)
+    LOG.info("Got S3 bucket {}".format(bucket))
     url = getattr(instance, url_attr)
     if url:
         LOG.info("Fetching {} for {}".format(url, instance))
@@ -196,8 +224,26 @@ def update_image_from_url(instance, url_attr, image_attr, save=False):
         if response.status_code == 200:
             filename = response.headers["X-File-Name"]
             LOG.info("Got filename {} for url {}".format(filename, url))
-            image = getattr(instance, image_attr)
-            image.save(filename, django.core.files.base.ContentFile(response.content), save=save)
+
+            # Upload image to S3 and store URL in image_attr + _public_url
+            upload_to_s3_and_set_attr(bucket, instance, "{}_public_url".format(image_attr), "original", filename, response.content)
+
+            for size, name in (
+                (THUMBNAIL_MEDIUM_SIZE, "medium"),
+                (THUMBNAIL_SMALL_SIZE, "small")
+            ):
+                prefix, _ = os.path.splitext(filename)
+                thumbnail_filename = prefix + ".png"
+                fp = io.BytesIO(response.content)
+                fp.seek(0)
+                im = Image.open(fp).convert("RGBA")
+                im.thumbnail(size)
+                out = io.BytesIO()
+                im.save(out, "PNG")
+                upload_to_s3_and_set_attr(bucket, instance, "{}_thumbnail_{}_public_url".format(image_attr, name), "thumbnail/{}".format(name), thumbnail_filename, out.getvalue())
+
+            # Save image object
+            instance.save()
 
 
 SPONSORSHIP_LEVELS = (
@@ -284,7 +330,7 @@ def get_all_sponsorships_by_year():
                 }
             )
             .order_by("level_is_null", "level", "starts_is_null", "-starts", "-created", "-modified")
-        ):
+    ):
         if not sponsorship.starts:
             continue
         years.setdefault(sponsorship.starts.year, []).append(sponsorship)
