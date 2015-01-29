@@ -117,7 +117,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format': '%(levelname)s %(asctime)s %(filename)s:%(lineno)s %(message)s'
+            'format': '%(asctime)s %(levelname)s %(name)s %(filename)s:%(lineno)s %(message)s'
         },
     },
     'handlers': {
