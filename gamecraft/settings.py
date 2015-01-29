@@ -110,3 +110,25 @@ AUTHENTICATION_BACKENDS = (
 LOGIN_URL = 'account_login'
 
 SITE_ID = 1
+
+# Derived from https://github.com/django/django/blob/master/django/utils/log.py
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(filename)s:%(lineno)s %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'root': {
+        'level': 'INFO',
+        'handlers': ['console'],
+    },
+}
