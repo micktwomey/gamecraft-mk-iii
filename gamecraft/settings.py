@@ -48,7 +48,6 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.github',
     'allauth.socialaccount.providers.twitter',
     'django.contrib.admindocs',
-    'imagekit',
     'django.contrib.redirects',
 )
 
@@ -111,6 +110,3 @@ AUTHENTICATION_BACKENDS = (
 LOGIN_URL = 'account_login'
 
 SITE_ID = 1
-
-# By default we mock the backend
-IMAGEKIT_CACHE_BACKEND = "mock.Mock"

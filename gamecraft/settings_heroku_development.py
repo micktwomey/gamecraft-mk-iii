@@ -21,5 +21,3 @@ INTERNAL_IPS = ['127.0.0.1', 'localhost', '::1']
 DEBUG_TOOLBAR_CONFIG = {
     "SHOW_TOOLBAR_CALLBACK": "gamecraft.utils.debug_toolbar_callback",
 }
-
-IMAGEKIT_CACHE_BACKEND = "mock.Mock"
