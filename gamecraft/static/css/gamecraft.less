@@ -80,6 +80,23 @@ footer {
 
         .blurb {
             background-color: fadeout(@gamecraft-title-colour, 10%);
+
+            // Neat trick from http://css-tricks.com/NetMag/FluidWidthVideo/Article-FluidWidthVideo.php
+            .video {
+                position: relative;
+                padding-bottom: 56.25%; /* 16:9 */
+                padding-top: 25px;
+                margin-bottom: 1em;
+                height: 0;
+
+                iframe {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
         }
     }
 
