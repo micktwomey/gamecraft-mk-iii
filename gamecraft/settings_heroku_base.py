@@ -28,9 +28,17 @@ STATICFILES_FINDERS = (
     'pipeline.finders.PipelineFinder',
 )
 
+node_bin = os.path.join(os.path.dirname(__file__), "../node_modules/.bin")
+PIPELINE_LESS_BINARY = os.path.join(node_bin, "lessc")
+# If you're having less problems trying sticking a console.log in the lessc parseless exception handler
+PIPELINE_LESS_ARGUMENTS = '''--clean-css --autoprefix --strict-imports --silent'''
+PIPELINE_UGLIFYJS_BINARY = os.path.join(node_bin, "uglifyjs")
+PIPELINE_YUGLIFY_BINARY = os.path.join(node_bin, "yuglify")
+
 PIPELINE_COMPILERS = (
     'pipeline.compilers.less.LessCompiler',
 )
+
 
 PIPELINE_CSS = {
     'gamecraft': {

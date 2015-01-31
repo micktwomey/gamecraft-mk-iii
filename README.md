@@ -30,7 +30,8 @@ This will trigger a build on https://circleci.com/gh/micktwomey/gamecraft-mk-iii
 ## Testing
 
 1. pip3.4 install -r requirements.txt
-2. python3.4 manage_development.py test --settings=gamecraft.settings
+2. npm install
+3. python3.4 manage_development.py test --settings=gamecraft.settings
 
 ## Running the Code
 
@@ -55,12 +56,7 @@ python3.4 manage.py runserver --settings gamecraft.settings_heroku_development 0
 
 ### Node
 
-You may need to do some node stuff (fish example below):
-
-```sh
-npm install less
-set -lx PATH (pwd)/node_modules/less/bin $PATH
-```
+Node is required for some of the CSS and JS processing, install deps using ```npm install```. They'll get installed into node_modules.
 
 # Config Files
 
