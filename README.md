@@ -76,3 +76,5 @@ To copy data from the live site to staging:
 ```
 heroku pgbackups:transfer --app gamecraft-it-staging gamecraft-it-eu::PURPLE HEROKU_POSTGRESQL_RED
 ```
+
+Trivial change.
