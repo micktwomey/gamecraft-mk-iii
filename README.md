@@ -74,5 +74,5 @@ https://github.com/micktwomey/gamecraft-mk-iii/issues/2 covers getting these bac
 
 To copy data from the live site to staging:
 ```
-heroku pgbackups:transfer --app gamecraft-it-staging gamecraft-it-eu::PURPLE HEROKU_POSTGRESQL_RED
+heroku pg:copy --app gamecraft-it-staging gamecraft-it-eu::PURPLE HEROKU_POSTGRESQL_RED
 ```
