@@ -1,9 +1,9 @@
-VENV=$(CURDIR)/venv
-PIP_SYNC=$(VENV)/bin/pip-sync
 PIP=$(VENV)/bin/pip
-PYTHON=$(VENV)/bin/python
 PIP_COMPILE=$(VENV)/bin/pip-compile
+PIP_SYNC=$(VENV)/bin/pip-sync
+PYTHON=$(VENV)/bin/python
 SOURCE=$(shell find gamecraft -type f)
+VENV=$(CURDIR)/venv
 
 .PHONY: all
 all: test
@@ -44,3 +44,7 @@ clean:
 	rm -rf build
 	rm -rf venv
 	rm -rf dist
+
+.PHONY: sync-master-db-to-staging
+sync-master-db-to-staging:
+	heroku pg:copy --app gamecraft-it-staging gamecraft-it-eu::PURPLE HEROKU_POSTGRESQL_RED

@@ -1,11 +1,11 @@
 boto
 dj-database-url
+Django
 django-appconf
 django-debug-toolbar
 django-ical
 django-pipeline
 django-redis-cache
-Django
 gunicorn
 iso8601
 Markdown

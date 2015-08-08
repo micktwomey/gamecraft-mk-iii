@@ -1,5 +1,5 @@
 import os
-import urllib.parse
+import urlparse
 
 from gamecraft.settings_heroku_base import *
 
@@ -10,18 +10,15 @@ INSTALLED_APPS = INSTALLED_APPS + (
     'raven.contrib.django.raven_compat',
 )
 
-redis_parse_result = urllib.parse.urlparse(os.environ['REDISCLOUD_URL'])
+redis_url = urlparse.urlparse(os.environ.get('REDIS_URL'))
 CACHES = {
-    'default': {
-        'BACKEND': 'redis_cache.cache.RedisCache',
-        'LOCATION': '{redis.hostname}:{redis.port}:0'.format(redis=redis_parse_result),
-        'OPTIONS': {
-            'CLIENT_CLASS': 'redis_cache.client.DefaultClient',
-            'PASSWORD': redis_parse_result.password,
-            'PICKLE_VERSION': -1,
-            'IGNORE_EXCEPTIONS': True,
-            'CONNECTION_POOL_KWARGS': {'max_connections': 10}
-        }
+    "default": {
+         "BACKEND": "redis_cache.RedisCache",
+         "LOCATION": "{0}:{1}".format(redis_url.hostname, redis_url.port),
+         "OPTIONS": {
+             "PASSWORD": redis_url.password,
+             "DB": 0,
+         }
     }
 }
 
