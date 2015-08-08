@@ -64,3 +64,4 @@ bower_components
 config
 staticfiles
 node_modules
+venv

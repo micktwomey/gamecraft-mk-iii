@@ -41,12 +41,6 @@ INSTALLED_APPS = (
     'pipeline',
     "gamecraft",
     "gamecraft.gamecrafts",
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.bitbucket',
-    'allauth.socialaccount.providers.github',
-    'allauth.socialaccount.providers.twitter',
     'django.contrib.admindocs',
     'django.contrib.redirects',
 )
@@ -99,16 +93,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
     "django.core.context_processors.request",
-    "allauth.account.context_processors.account",
-    "allauth.socialaccount.context_processors.socialaccount",
 )
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    "allauth.account.auth_backends.AuthenticationBackend",
 )
-
-LOGIN_URL = 'account_login'
 
 SITE_ID = 1
 

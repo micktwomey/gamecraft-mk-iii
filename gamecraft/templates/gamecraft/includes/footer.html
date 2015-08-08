@@ -1,4 +1,3 @@
-{% load account %}
 <footer>
   <div class="container">
     <div class="row">
@@ -11,24 +10,6 @@
       <div class="col-md-4">
         <p><a href="{% url 'gamecraft_rss' %}">RSS</a></p>
       </div>
-      {# <div class="col-md-4"> #}
-        {# <ul> #}
-          {# <li><a href="#">Contact</a></li> #}
-          {# <li><a href="#">Colophon</a></li> #}
-        {# </ul> #}
-      {# </div> #}
-      {# <div class="col-md-4"> #}
-        {# <ul> #}
-          {# {% if user.is_authenticated %} #}
-          {# <li><a href="{% url 'account_profile' %}">Profile</a></li> #}
-            {# {% if perms.gamecrafts.modify_gamecraft %} #}
-              {# <li><a href="{% url 'new_gamecraft' %}">Create new GameCraft</a></li> #}
-            {# {% endif %} #}
-          {# {% else %} #}
-          {# <li><a href="{% url 'account_login' %}">Login</a></li> #}
-          {# {% endif %} #}
-        {# </ul> #}
-      {# </div> #}
     </div>
     <div class="row">
         <p class="text-center">(c) Copyright 2015 GameCraft</p>
