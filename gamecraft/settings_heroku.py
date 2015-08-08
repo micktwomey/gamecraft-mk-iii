@@ -1,5 +1,5 @@
 import os
-import urlparse
+from urllib.parse import urlparse
 
 from gamecraft.settings_heroku_base import *
 
@@ -10,7 +10,7 @@ INSTALLED_APPS = INSTALLED_APPS + (
     'raven.contrib.django.raven_compat',
 )
 
-redis_url = urlparse.urlparse(os.environ.get('REDIS_URL'))
+redis_url = urlparse(os.environ.get('REDIS_URL'))
 CACHES = {
     "default": {
          "BACKEND": "redis_cache.RedisCache",
