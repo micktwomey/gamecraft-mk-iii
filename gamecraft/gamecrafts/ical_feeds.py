@@ -2,7 +2,7 @@
 
 """
 
-from django_ical.views import ICalFeed
+from gamecraft.django_ical.views import ICalFeed
 from gamecraft.gamecrafts.models import GameCraft
 
 
