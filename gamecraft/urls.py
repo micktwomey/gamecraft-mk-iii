@@ -23,4 +23,5 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^media/(?P<path>.*)$', 'gamecraft.views.get_media'),
     url(r'^robots.txt$', robots_txt),
+    url(r'^prometheus/', include('gamecraft.django_prometheus_light.urls')),
 )

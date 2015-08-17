@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     "gamecraft.gamecrafts",
     'django.contrib.admindocs',
     'django.contrib.redirects',
+    'gamecraft.django_prometheus_light',
 )
 
 MIDDLEWARE_CLASSES = (

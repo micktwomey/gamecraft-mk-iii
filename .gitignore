@@ -65,3 +65,4 @@ config
 staticfiles
 node_modules
 venv
+.settings.make
