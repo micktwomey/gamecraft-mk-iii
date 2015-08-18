@@ -12,6 +12,7 @@ Markdown
 mock
 Pillow
 pip-tools
+prometheus_client
 psycopg2
 pytz
 raven
@@ -19,3 +20,4 @@ redis
 requests
 static
 static3
+WebOb

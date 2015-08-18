@@ -5,11 +5,28 @@ PYTHON=$(VENV)/bin/python
 SOURCE=$(shell find gamecraft -type f)
 VENV=$(CURDIR)/venv
 
+#
+# Do some jiggery pokery to set some variables from heroku
+#
+MAKE_SETTINGS_FILES=$(wildcard *.settings.make)
+MAKE_SETTINGS_FILE=.settings.make
+
+ifndef $(MAKE_SETTINGS_FILES)
+	IGNORE:=$(shell heroku config -a gamecraft-it-staging --shell | sed -E 's/^(.*)/export \1/g' > $(MAKE_SETTINGS_FILE))
+		# '
+endif
+
+include $(MAKE_SETTINGS_FILE)
+
+
 .PHONY: all
 all: test
 
 requirements.txt: requirements.in
 	$(PIP_COMPILE) requirements.in
+
+.PHONY: requirements
+requirements: requirements.txt
 
 $(PYTHON):
 	virtualenv -p python3.4 $(VENV)
@@ -23,28 +40,25 @@ $(PIP): $(PYTHON)
 .PHONY: build
 build: build/build.txt
 
-build/build.txt:
-	mkdir -p build
-	touch build/build.txt
-
-build/pip-installed.txt: requirements.txt build/build.txt $(PIP_SYNC) $(PIP)
+.PHONY: pip-sync
+pip-sync: requirements.txt $(PIP_SYNC)
 	$(PIP_SYNC) requirements.txt
-	$(PIP) freeze > build/pip-installed.txt
-
-build/test.txt: build/pip-installed.txt $(SOURCE)
-	$(PYTHON) manage_development.py test --settings=gamecraft.settings
-	touch build/test.txt
 
 .PHONY: test
-test: build/test.txt
-
+test: pip-sync $(SOURCE)
+	$(PYTHON) manage_development.py test --settings=gamecraft.settings
 
 .PHONY: clean
 clean:
 	rm -rf build
 	rm -rf venv
 	rm -rf dist
+	rm -f $(MAKE_SETTINGS_FILE)
 
 .PHONY: sync-master-db-to-staging
 sync-master-db-to-staging:
 	heroku pg:copy --app gamecraft-it-staging gamecraft-it-eu::PURPLE HEROKU_POSTGRESQL_RED
+
+.PHONY: runserver
+runserver:
+	$(PYTHON) manage_development.py runserver
