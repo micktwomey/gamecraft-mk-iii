@@ -4,6 +4,7 @@ PIP_SYNC=$(VENV)/bin/pip-sync
 PYTHON=$(VENV)/bin/python
 SOURCE=$(shell find gamecraft -type f)
 VENV=$(CURDIR)/venv
+PYTHON3=python3
 
 #
 # Do some jiggery pokery to set some variables from heroku
@@ -23,13 +24,13 @@ include $(MAKE_SETTINGS_FILE)
 all: test
 
 requirements.txt: requirements.in
-	$(PIP_COMPILE) requirements.in
+	$(PIP_COMPILE) --upgrade --verbose requirements.in
 
 .PHONY: requirements
 requirements: requirements.txt
 
 $(PYTHON):
-	virtualenv -p python3.4 $(VENV)
+	virtualenv -p $(PYTHON3) $(VENV)
 
 $(PIP_SYNC): $(PIP)
 	$(PIP) install -U pip-tools
