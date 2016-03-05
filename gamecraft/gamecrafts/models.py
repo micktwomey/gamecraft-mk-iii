@@ -120,7 +120,9 @@ class GameCraft(models.Model):
         """Returns True if the theme should be shown
 
         """
-        return True if (self.started() or self.finished()) and self.theme else False
+        # show theme 30 minutes after start, we never start on time :)
+        started = (self.starts + datetime.timedelta(minutes=30)) <= timezone.now()
+        return True if started and self.theme else False
 
     def show_signup(self):
         """Returns True if the signup details should be shown

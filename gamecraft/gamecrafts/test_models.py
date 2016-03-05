@@ -85,12 +85,12 @@ class GameCraftModelTestCase(TestCase):
         self.future_gamecraft.save()
         return self.future_gamecraft
 
-    def add_started_gamecraft(self):
+    def add_started_gamecraft(self, minutes=60):
         self.started_gamecraft = models.GameCraft(
             slug="from-the-present",
             title="From the Present",
-            starts=self.now() - datetime.timedelta(minutes=60),
-            ends=self.now() + datetime.timedelta(minutes=60),
+            starts=self.now() - datetime.timedelta(minutes=minutes),
+            ends=self.now() + datetime.timedelta(minutes=minutes),
             public=True,
         )
         self.started_gamecraft.save()
@@ -130,6 +130,21 @@ class GameCraftModelTestCase(TestCase):
         self.assertFalse(self.future_gamecraft.show_theme())
         self.future_gamecraft.theme = "A theme!"
         self.assertFalse(self.future_gamecraft.show_theme())
+
+    def test_show_theme_after_a_while(self):
+        """Only show the theme if the GC is started for a while"""
+        self.add_started_gamecraft(minutes=29)
+        self.started_gamecraft.theme = "A theme!"
+        self.started_gamecraft.save()
+        self.assertEqual(self.started_gamecraft.theme, "A theme!")
+        self.assertFalse(self.started_gamecraft.show_theme())
+        self.started_gamecraft.delete()
+
+        self.add_started_gamecraft(minutes=31)
+        self.started_gamecraft.theme = "A theme!"
+        self.started_gamecraft.save()
+        self.assertEqual(self.started_gamecraft.theme, "A theme!")
+        self.assertTrue(self.started_gamecraft.show_theme())
 
 
 class SponsorshipTestCase(TestCase):
