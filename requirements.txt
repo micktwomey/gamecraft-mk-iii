@@ -4,39 +4,40 @@
 #
 #    pip-compile requirements.in
 #
-boto==2.38.0
-click==5.1                # via pip-tools
-dj-database-url==0.3.0
+boto==2.39.0
+click==6.3                # via pip-tools
+contextlib2==0.5.1        # via raven
+dj-database-url==0.4.0
 django-appconf==1.0.1
-django-debug-toolbar==1.3.2
+django-debug-toolbar==1.4
 django-ical==1.3
-django-pipeline==1.5.3
-django-redis-cache==1.6.0
-django==1.8.4
+django-pipeline==1.5.4
+django-redis-cache==1.6.5
+Django==1.8.10            # via django-debug-toolbar, django-ical
 first==2.0.1              # via pip-tools
-futures==3.0.3            # via django-pipeline
-gunicorn==19.3.0
-icalendar==3.9.0          # via django-ical
-iso8601==0.1.10
-markdown==2.6.2
+futures==3.0.5            # via django-pipeline
+gunicorn==19.4.5
+icalendar==3.9.2          # via django-ical
+iso8601==0.1.11
+Markdown==2.6.5
 mock==1.3.0
-pbr==1.5.0                # via mock
-pillow==2.9.0
-pip-tools==1.1.3
-prometheus-client==0.0.11
+pbr==1.8.1                # via mock
+Pillow==3.1.1
+pip-tools==1.6
+prometheus-client==0.0.13
 psycopg2==2.6.1
 pystache==0.5.4           # via static
-python-dateutil==2.4.2    # via icalendar
-pytz==2015.4
-raven==5.5.0
-redis==2.10.3
-requests==2.7.0
-six==1.9.0                # via django-appconf, mock, pip-tools, python-dateutil
-sqlparse==0.1.16          # via django-debug-toolbar
+python-dateutil==2.5.0    # via icalendar
+pytz==2015.7
+raven==5.11.0
+redis==2.10.5
+requests==2.9.1
+six==1.10.0               # via django-appconf, mock, pip-tools, python-dateutil
+sqlparse==0.1.18          # via django-debug-toolbar
 static3==0.6.1
 static==1.1.1
-webob==1.4.1
+WebOb==1.5.1
 
 # The following packages are commented out because they are
 # considered to be unsafe in a requirements file:
-# setuptools==18.1          # via icalendar
+# setuptools                # via icalendar

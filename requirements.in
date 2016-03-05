@@ -1,10 +1,10 @@
 boto
 dj-database-url
-Django
+Django<1.9.0  # looks like pipelines needs to be upgraded first
 django-appconf
 django-debug-toolbar
 django-ical
-django-pipeline
+django-pipeline<1.6.0  # requires a config update
 django-redis-cache
 gunicorn
 iso8601
