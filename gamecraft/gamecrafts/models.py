@@ -387,6 +387,8 @@ class NewsNotFound(Exception):
 
     Typically you want to raise a django.http.Http404 at this point.
 
+    ok
+
     """
 
 
